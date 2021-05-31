@@ -1,0 +1,67 @@
+.table .thead-primary{
+    background-color: #055C82;
+}
+.ftco-section .container .row .cart-list{
+    background-color: #d3e2e8;
+}
+.quantity, .form-control, .input-number{
+    background-color: #00000000 !important;
+}
+.cart-total{
+    background-color: #d3e2e8;
+}
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+    
+	table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      .table {
+        min-width: 100% !important;
+        width: 100% !important;
+        color: black;
+    }
+      thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+      tr { border: 1px solid #ccc; }
+      td {
+        border: none;
+        border-bottom: 2px solid #055C82;
+        position: relative;
+        padding-left: 200px;
+        margin-left: 150px;
+      }
+      td:before {
+        position: absolute;
+        top: 12px;
+        left: 6px;
+        width: 150px;
+        padding-right: 40px;
+        white-space: nowrap;
+        margin-left: -150px;
+        margin-top: 30px;
+      }
+      .product-name{
+          width: 60% !important;
+      }
+      .product-name p{
+        display: none;
+      }
+      .quantity{
+          width: 60% !important;
+      }
+	/*
+	Label the data
+	*/
+	td:nth-of-type(1):before { content: "Hình ảnh"; }
+	td:nth-of-type(2):before { content: "Sản phẩm"; }
+	td:nth-of-type(3):before { content: "Giá tiền"; }
+	td:nth-of-type(4):before { content: "Số lượng"; }
+	td:nth-of-type(5):before { content: "Tổng cộng"; }
+	td:nth-of-type(6):before { content: "       "; }
+	
+}

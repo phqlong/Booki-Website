@@ -1,0 +1,19 @@
+.img-prod{
+    height : 300px;
+}
+.img-fluid{
+    /* height:100%; */
+    width: 100%;
+}
+@media (max-width: 450px) {
+    /* .sidebar {
+      display: none; 
+    }  */
+      .img-prod{
+        height : 400px;
+    }
+    .hero-wrap.hero-bread {
+        padding: 3em 0;
+    }
+   
+}

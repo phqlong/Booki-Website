@@ -1,0 +1,43 @@
+body {
+    background-color: #f9e1e0 !important;
+    font-size: 18px;
+}
+
+.header-bar {
+    background-color: #679b9b !important;
+}
+
+.header-bar a {
+    color: white !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #0c3d89 !important;
+}
+
+.footer-area {
+    background-color: #679b9b !important;
+}
+
+.footer-area p {
+    color: white;
+}
+
+.spotlight {
+    height: 675px;
+}
+
+.spotlight #home-title {
+    height: 100%;
+    align-items: center;
+}
+
+@media (max-width: 768px) { 
+    .spotlight #home-title {
+        background-image: url('../images/bg_1.jpg'); 
+        background-size: cover;
+        height: 100%;
+        align-items: flex-start;
+    }
+
+}

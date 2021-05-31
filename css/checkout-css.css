@@ -1,0 +1,11 @@
+.bill-info{
+    padding-top: 10px;
+    background-color: #d3e2e8 !important;
+}
+.cart-detail, .cart-total{
+    background-color: #adcbd8;
+    color: black;
+}
+.bread{
+    font-family: Georgia, 'Times New Roman', Times, serif !important;
+}
