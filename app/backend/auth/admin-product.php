@@ -7,7 +7,7 @@
         $result = mysqli_query($conn, $query);
 
         while($row = mysqli_fetch_assoc($result)):?>
-            <div class="card" >
+            <div class="card admin-product" >
                 <img class="card-img-top" src=<?php echo $row["image"]; ?> alt="Card image cap">
                 <div class="card-body">
                   <h5 class="card-title"><?php echo $row["name"]; ?></h5>
