@@ -11,9 +11,7 @@
             <div class="row d-flex align-items-end">
             <div class="col-md-12 text-center">
                 <p>Đại học Bách Khoa - Khoa Khoa học & Kỹ thuật Máy tính</p>
-                <p>Lập trình web 192 (CO3049)</p>
-                <a href= "https://www.facebook.com/linh.hy99">Hy Phạm Ngọc Linh - 1711947</a></br>
-                <a href= "https://www.facebook.com/namnngguyen">Nguyễn Hoàng Nam - 1612115</a>
+                <p>Lập trình web 202 (CO3049)</p>
             </div>
             <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5" style="margin-left: auto; margin-right: auto;">
                 <li class="ftco-animate fadeInUp ftco-animated"><a href="https://twitter.com/" style="background-color: white;"><span class="icon-twitter"></span></a></li>
@@ -43,5 +41,3 @@
     <script src="js/google-map.js"></script>
     <script src="js/main.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-</body>
-</html>

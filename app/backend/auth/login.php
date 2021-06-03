@@ -1,33 +1,28 @@
 <?php
-require_once 'app/backend/core/Init.php';
+    require_once 'app/backend/core/init.php';
+?>
+<?php
+    $warning = "";
+    if(isset($_POST['login'])){    
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $role = $_POST['role'];
 
-if (Input::exists()) {
-    $validate   = new Validation();
+        $query = "CALL VALIDATE_LOGIN(\"$username\", \"$password\", \"$role\")";
 
-    $validation = $validate->check($_POST, array(
-        'username' => array(
-            'required' => true,
-        ),
-        'password' => array(
-            'required' => true
-        ),
-    ));
-
-    if ($validation->passed()) {
-        $remember   = (Input::get('remember') === 'on') ? true : false;
-        $login      = $user->login(Input::get('username'), Input::get('password'), $remember);
-        if ($login) {
-            if ($user->hasPermission('admin')) {
-                Redirect::to('admin-product.php');
-            } else {
-                Redirect::to('index.php');
-            }
-        } else {
-            echo '<div class="alert alert-danger"><strong></strong>Username or password are incorrect! Please try again...</div>';
+        $result = mysqli_query($conn, $query);
+        while($row = mysqli_fetch_assoc($result)){
+            $username = $row['username'];
+            $role = $row['role'];
+            
         }
-    } else {
-        foreach ($validation->errors() as $error) {
-            echo '<div class="alert alert-danger"><strong></strong>' . cleaner($error) . '</div>';
+        if($username == '-1'){
+            $warning = "Sai tên đăng nhập hoặc mật khẩu";
+        }
+        else{
+            $_SESSION['username'] = $username;
+            $_SESSION['role'] = $role;
+            header('Location: index.php');
         }
     }
-}
+?>

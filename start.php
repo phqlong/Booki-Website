@@ -1,5 +1,5 @@
 <?php
-require_once 'app/backend/core/Init.php';
+require_once 'app/backend/core/init.php';
 
 define('BACKEND_AUTH', 'app/backend/auth/');
 define('FRONTEND_BASE', 'app/frontend/');
@@ -8,5 +8,5 @@ define('FRONTEND_INCLUDE', 'app/frontend/includes/');
 define('FRONTEND_INCLUDE_ERROR', 'app/frontend/includes/errors/');
 define('FRONTEND_ASSET', 'app/frontend/assets/');
 if ($_SERVER['REQUEST_URI'] == '/start.php'):
-    Redirect::to('index.php');
+    header('Location: index.php');
 endif; 

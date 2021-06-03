@@ -223,7 +223,7 @@ CREATE OR REPLACE PROCEDURE `GET_BOOK`(
     IN `id` INT 
 ) 
 BEGIN 
-	SELECT name, author, publisher, amount, description, price
+	SELECT bid, name, author, publisher, amount, description, price, image
     FROM `book` 
     WHERE bid = id; 
 END $$
@@ -237,7 +237,7 @@ DELIMITER ;
 DELIMITER $$
 CREATE OR REPLACE PROCEDURE `GET_ALL_BOOKS`()
 BEGIN 
-	SELECT name, author, publisher, amount, description, price
+	SELECT bid,name, author, publisher, amount, description, price, image
     FROM `book`;
 END $$
 DELIMITER ;
