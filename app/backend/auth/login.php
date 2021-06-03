@@ -3,15 +3,7 @@
 ?>
 <?php
     $warning = "";
-    // $query = 'CALL VALIDATE_LOGIN("hoanduy", "hoanduy", "customer")';
-
-    //     $result = mysqli_query($conn, $query);
-    //     while($row = mysqli_fetch_assoc($result)){
-    //         echo $row['username'];
-    //         echo $row['role'];
-    //     }
-    if(isset($_POST['login'])){
-        
+    if(isset($_POST['login'])){    
         $username = $_POST['username'];
         $password = $_POST['password'];
         $role = $_POST['role'];

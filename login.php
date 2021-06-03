@@ -9,5 +9,6 @@
         require_once BACKEND_AUTH . 'login.php';
         require_once FRONTEND_PAGE . 'login.php';
         require_once FRONTEND_INCLUDE . 'footer.php';
+        require_once FRONTEND_INCLUDE . 'closehtml.php';
     }
 ?>
