@@ -30,7 +30,7 @@
         else{
             $_SESSION['username'] = $username;
             $_SESSION['role'] = $role;
-            $warning = getUsername()." logged in as ".getRole();
+            header('Location: index.php');
         }
     }
 ?>

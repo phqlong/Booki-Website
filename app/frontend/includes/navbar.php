@@ -7,11 +7,24 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item mr-3"><a href="about.php" class="nav-link">Giới thiệu</a></li>
-            <li class="nav-item mr-3"><a href="service.php" class="nav-link">Dịch vụ</a></li>
-            <li class="nav-item mr-3"><a href="product.php" class="nav-link">Lina store</a></li>
-            <li class="nav-item mr-3"><a href="contact.php" class="nav-link">Liên hệ</a></li>
-            <li class="nav-item mr-3"><a href="login.php" class="nav-link">Login</a></li>
+            <?php if(!isLoggedIn()):?>
+                <li class="nav-item mr-3"><a href="product.php" class="nav-link">Sách</a></li>
+                <li class="nav-item mr-3"><a href="contact.php" class="nav-link">Liên hệ</a></li>
+                <li class="nav-item mr-3"><a href="login.php" class="nav-link">Đăng nhập</a></li>
+                <li class="nav-item mr-3"><a href="register.php" class="nav-link">Đăng ký</a></li>
+            <?php else:
+                if(getRole() == 'customer'): ?>
+                    <li class="nav-item mr-3"><a href="product.php" class="nav-link">Sách</a></li>
+                    <li class="nav-item mr-3"><a href="contact.php" class="nav-link">Liên hệ</a></li>
+                    <li class="nav-item mr-3"><a href="cart.php" class="nav-link">Giỏ hàng</a></li>
+                <?php elseif(getRole() == 'admin'): ?>
+                    <li class="nav-item mr-3"><a href="admin-product.php" class="nav-link">Quản lý sách</a></li>
+                    <li class="nav-item mr-3"><a href="admin-user.php" class="nav-link">Quản lý người dùng</a></li>
+                    
+                <?php endif;?>
+                <li class="nav-item mr-3"><a href="user-info.php" class="nav-link"><?php echo getUsername();?></a></li>
+                <li class="nav-item mr-3"><a href="logout.php" class="nav-link">Đăng xuất</a></li>
+            <?php endif;?>
         </ul>
         </div>
     </div>
