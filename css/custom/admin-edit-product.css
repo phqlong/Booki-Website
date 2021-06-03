@@ -1,0 +1,16 @@
+form#admin-edit-book{
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+#admin-edit-book > *{
+    flex: 0 0 40%;
+}
+.preview .admin-product{
+    align-self: center;
+    border: solid;
+}
+.admin-edit-warning{
+    color: red;
+}
