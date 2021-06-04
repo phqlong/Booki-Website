@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap');
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 @import "custom/admin-product.css";
 @import "custom/admin-edit-product.css";
 @import "custom/ProductStyle.css";
