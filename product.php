@@ -11,5 +11,5 @@
 <?php
         require_once FRONTEND_INCLUDE . 'closehtml.php';
 ?>
-<link rel="stylesheet" href="./css/ProductStyle.css">
+<!-- <link rel="stylesheet" href="./css/ProductStyle.css"> -->
 
