@@ -4,6 +4,7 @@
 @import "custom/admin-product.css";
 @import "custom/admin-edit-product.css";
 @import "custom/ProductStyle.css";
+@import "custom/product-detail.css";
 body {
     background-color: #f9e1e0 !important;
     font-size: 18px;

@@ -1,21 +1,15 @@
 <?php
- $hostname = "localhost"; 
- $username = "root";
- $password = "";
- $database = "booki";
- //connection to the database
- $conn = mysqli_connect($hostname, $username, $password,$database) 
-     or die("Unable to connect to MySQL");
+require_once 'app/backend/core/init.php';
 if (isset($_POST['viewproducts'])){
     $data="";
-    $sql = "SELECT name, price,image FROM book";
+    $sql = "SELECT bid,name, price,image FROM book";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
 
             $data.=
                 '<div class="box">
-                    <a href="./product-detail.php">
+                    <a href="./product-detail.php?id='.$row['bid'].'">
                     <img src="'.$row["image"].'" alt="#" class="img-box">
                     <div class="text">
                         <span class="five_star">
