@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap');
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Oswald', sans-serif;
+}
+
+.price-package{
+    background-color: white;
+}
+
+.price-package .strike-price{
+    text-decoration: line-through;
+}
+.price-package .off-price{
+    color: #c11325;
+}
+.price-package .content {
+    -webkit-display: flex;
+    display: flex;
+    flex-wrap: wrap;
+}
+.price-package .content .box {
+    flex: 0 0 25%;
+    max-width: 50%;;
+    padding: 10px;
+    
+    
+}
+
+
+.price-package .content .box:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border: 1px outset rgba(28,110,164,0.32);
+
+}
+
+.price-package .content .box img {
+    width: 100%;
+}
+
+.price-package .content .box .five_star img{
+    width: 15px;
+}
+
+.price-package .content .box .text h3 {
+    font-size: 17px;
+    color: #222222;
+    margin: 0;
+    padding: 0px 0px 10px 0px;
+    font-weight: 700;
+    text-align: left;
+}
+
+.price-package .content .box .text p {
+    font-size: 15px;
+    line-height: 20px;
+    color: #222222;
+    margin: 0;
+    text-align: left;
+    padding: 0 0 5px;
+    font-family: 'Open-sans', sans-serif;
+}
+
+.price-package .content .box .text .btn {
+    padding: 8px 50px;
+    background-color: #c11325;
+    color: #ffffff;
+    text-decoration: none;
+    display: inline-block;
+    border: 1px solid transparent;
+    cursor: pointer;
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
+    margin-top: 10px;
+}
+
+.price-package .filter li{
+    text-decoration: none;
+    
+}
+
+.price-package .filter ul{
+    list-style: none;
+  
+}
+
+/* .price-package {
+    
+    background-color: #e4e3e3;
+}
+
+.filter, .content{
+    background-color:white;
+} */
