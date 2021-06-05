@@ -49,19 +49,21 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ADD_REVIEW` (IN `_uid` INT, IN `_bi
     VALUES (_uid, _bid, _rating, _comment);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ADD_TO_CART` (IN `_uid` INT, IN `_bid` INT)  BEGIN 
-    IF(EXISTS(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADD_TO_CART` (IN `usn` VARCHAR(15) COLLATE utf8mb4_unicode_ci, IN _bid INT, IN _amount INT)  BEGIN 
+    SET @uid = (SELECT uid FROM `user` WHERE username = usn);
+
+    IF EXISTS(
         SELECT uid 
         FROM `cart`
-        WHERE uid = _uid AND bid = _bid
-    )) THEN
+        WHERE uid = @uid AND bid = _bid
+    ) 
+    THEN
         UPDATE `cart`
-        SET amount = amount + 1
-        WHERE uid = _uid AND bid = _bid;
-
+        SET amount = amount + _amount
+        WHERE uid = @uid AND bid = _bid;
     ELSE 
         INSERT INTO `cart`(uid, bid, amount)
-        VALUES(_uid, _bid, 1);
+        VALUES(@uid, _bid, _amount);
     END IF;
 	
 END$$
@@ -190,6 +192,11 @@ END$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `REMOVE_CART_ITEM` (IN `_uid` INT, IN `_bid` INT)  BEGIN 
     DELETE FROM `cart`
     WHERE uid = _uid AND bid = _bid;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `REMOVE_ALL_CART_ITEM`(IN `usn` VARCHAR(15) COLLATE utf8mb4_unicode_ci) BEGIN 
+    SET @uid = (SELECT uid FROM `user` WHERE username = usn);
+    DELETE FROM `cart` WHERE uid = @uid;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SHOW_CART_ITEMS` (IN `_uid` INT)  BEGIN 

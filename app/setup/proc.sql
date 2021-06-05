@@ -379,47 +379,51 @@ CARTS
 */
 DELIMITER $$
 CREATE OR REPLACE PROCEDURE `SHOW_CART_ITEMS`(
-    IN _uid INT
+    IN `usn` VARCHAR(15) COLLATE utf8mb4_unicode_ci
 )
 BEGIN 
-	SELECT book.name, cart.amount, book.price, cart.amount*book.price as total_price
+	SELECT book.bid as bid, book.name as bname, cart.amount as quantity, book.price as bprice, book.image as bimg
     FROM `book`, `user`, `cart`
     WHERE
-        cart.uid = _uid 
-        AND cart.bid = book.bid
-        AND cart.uid = user.uid;
+        user.username = usn 
+        AND cart.uid = user.uid
+        AND cart.bid = book.bid;
 END $$
 DELIMITER ;
 
 /*
 	PROCEDURE: ADD_TO_CART
-    Description: Helper procedure when user click on 'Add to cart' button
+    Description: Helper procedure when user logout and update cart on database.
         - Book has been in the cart: increase the current amount of this book in the cart by 1
         - Book hasn't been in the cart: add new cart item with amount = 1
     Param
-        - _uid: user id
+        - usn: username
         - _bid: book id
+        - _amount: book amount
 */
 DELIMITER $$
 CREATE OR REPLACE PROCEDURE `ADD_TO_CART`(
-    IN _uid INT,
-    IN _bid INT
+    IN `usn` VARCHAR(15) COLLATE utf8mb4_unicode_ci,
+    IN _bid INT,
+    IN _amount INT
 )
 BEGIN 
-    IF(EXISTS(
+    SET @uid = (SELECT uid FROM `user` WHERE username = usn);
+
+    IF EXISTS(
         SELECT uid 
         FROM `cart`
-        WHERE uid = _uid AND bid = _bid
-    )) THEN
+        WHERE uid = @uid AND bid = _bid
+    ) 
+    THEN
         UPDATE `cart`
-        SET amount = amount + 1
-        WHERE uid = _uid AND bid = _bid;
-
+        SET amount = amount + _amount
+        WHERE uid = @uid AND bid = _bid;
     ELSE 
         INSERT INTO `cart`(uid, bid, amount)
-        VALUES(_uid, _bid, 1);
+        VALUES(@uid, _bid, _amount);
     END IF;
-	
+
 END $$
 DELIMITER ;
 
@@ -460,6 +464,22 @@ CREATE OR REPLACE PROCEDURE `REMOVE_CART_ITEM`(
 BEGIN 
     DELETE FROM `cart`
     WHERE uid = _uid AND bid = _bid;
+END $$
+DELIMITER ;
+
+/*
+	PROCEDURE: REMOVE_ALL_CART_ITEM
+    Description: Remove all book in cart of user when logout to add new cart
+    Param
+        - _uid: user id
+*/
+DELIMITER $$
+CREATE OR REPLACE PROCEDURE `REMOVE_ALL_CART_ITEM`(
+    IN `usn` VARCHAR(15) COLLATE utf8mb4_unicode_ci
+)
+BEGIN 
+    SET @uid = (SELECT uid FROM `user` WHERE username = usn);
+    DELETE FROM `cart` WHERE uid = @uid;
 END $$
 DELIMITER ;
 
