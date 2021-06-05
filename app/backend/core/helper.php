@@ -9,9 +9,4 @@
     function getRole(){
         return $_SESSION['role'];
     }
-    function logOut(){
-        $_SESSION['username'] = NULL;
-        $_SESSION['role'] = NULL;
-        $_SESSION['shopping_cart']= NULL;
-    }
 ?>

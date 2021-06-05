@@ -22,6 +22,7 @@
         else{
             $_SESSION['username'] = $username;
             $_SESSION['role'] = $role;
+
             header('Location: index.php');
         }
     }

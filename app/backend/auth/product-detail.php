@@ -6,8 +6,13 @@ if (isset($_POST["add_to_cart"])) {
     if (isLoggedIn() && getRole() == 'customer') {
         if (isset($_SESSION['shopping_cart'])) {
             $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
-            if (!in_array($_GET["id"], $item_array_id)) {
-                $count = count($_SESSION["shopping_cart"]);
+
+            if (in_array($_GET["id"], $item_array_id)) {
+                // echo '<script>alert("Item Already Added")</script>';
+
+                $idx = array_search($_GET["id"], $item_array_id);
+                $_SESSION["shopping_cart"][$idx]["item_quantity"] += 1;
+            } else {
                 $item_array = array(
                     'item_id'            =>    $_GET["id"],
                     'item_name'            =>    $_POST["hidden_name"],
@@ -15,9 +20,7 @@ if (isset($_POST["add_to_cart"])) {
                     'item_quantity'        =>    $_POST["quantity"],
                     'item_image'        =>    $_POST["hidden_image"]
                 );
-                $_SESSION["shopping_cart"][$count] = $item_array;
-            } else {
-                //echo '<script>alert("Item Already Added")</script>';
+                array_Push($_SESSION["shopping_cart"], $item_array);
             }
         } else {
             $item_array = array(
@@ -27,18 +30,25 @@ if (isset($_POST["add_to_cart"])) {
                 'item_quantity'        =>    $_POST["quantity"],
                 'item_image'        =>    $_POST["hidden_image"]
             );
+            $_SESSION["shopping_cart"] = array();
             $_SESSION["shopping_cart"][0] = $item_array;
         }
     } else {
         header('Location: login.php');
     }
 }
+
 if (isset($_POST["buy_now"])) {
     if (isLoggedIn() && getRole() == 'customer') {
         if (isset($_SESSION['shopping_cart'])) {
             $item_array_id = array_column($_SESSION["shopping_cart"], "item_id");
-            if (!in_array($_GET["id"], $item_array_id)) {
-                $count = count($_SESSION["shopping_cart"]);
+
+            if (in_array($_GET["id"], $item_array_id)) {
+                // echo '<script>alert("Item Already Added")</script>';
+
+                $idx = array_search($_GET["id"], $item_array_id);
+                $_SESSION["shopping_cart"][$idx]["item_quantity"] += 1;
+            } else {
                 $item_array = array(
                     'item_id'            =>    $_GET["id"],
                     'item_name'            =>    $_POST["hidden_name"],
@@ -46,11 +56,8 @@ if (isset($_POST["buy_now"])) {
                     'item_quantity'        =>    $_POST["quantity"],
                     'item_image'        =>    $_POST["hidden_image"]
                 );
-                $_SESSION["shopping_cart"][$count] = $item_array;
-            } else {
-                //echo '<script>alert("Item Already Added")</script>';
+                array_Push($_SESSION["shopping_cart"], $item_array);
             }
-            
         } else {
             $item_array = array(
                 'item_id'            =>    $_GET["id"],
@@ -59,6 +66,7 @@ if (isset($_POST["buy_now"])) {
                 'item_quantity'        =>    $_POST["quantity"],
                 'item_image'        =>    $_POST["hidden_image"]
             );
+            $_SESSION["shopping_cart"] = array();
             $_SESSION["shopping_cart"][0] = $item_array;
         }
         header('Location:cart.php');

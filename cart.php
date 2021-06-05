@@ -3,7 +3,6 @@
     if(isLoggedIn() && getRole() == 'customer'){
         require_once FRONTEND_INCLUDE . 'header.php';
         require_once FRONTEND_INCLUDE . 'navbar.php';
-        require_once BACKEND_AUTH . 'cart.php';
         require_once FRONTEND_PAGE . 'cart.php';
         require_once FRONTEND_INCLUDE . 'footer.php';
 ?>

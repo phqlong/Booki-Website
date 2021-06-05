@@ -3,10 +3,10 @@ function changeQuatity(id,quantity) {
         url: 'cart-fetch.php',
         type: 'post',
         data: {
-            changeQuantity:"changeQuantity",
+            update_quantity: quantity,
             id: id,
-            quantity: quantity
         },
+        
         success: function(data, status) {
             window.location="cart.php";
         }
