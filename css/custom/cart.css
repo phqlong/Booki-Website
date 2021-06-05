@@ -1,0 +1,11 @@
+.cart .container .table .detail-cart{
+    color: black;
+}
+.cart .container .table .detail-cart img{
+    height: 140px;
+    padding: 10px;
+}
+
+.cart .container .table td {
+    padding:0px;
+}
