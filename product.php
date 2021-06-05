@@ -12,4 +12,4 @@
         require_once FRONTEND_INCLUDE . 'closehtml.php';
 ?>
 <!-- <link rel="stylesheet" href="./css/ProductStyle.css"> -->
-
+<?php require_once 'app/backend/core/clear.php'; ?>

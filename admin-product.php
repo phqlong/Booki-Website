@@ -15,3 +15,4 @@
         header('Location: index.php');
     }
 ?>
+<?php require_once 'app/backend/core/clear.php'; ?>

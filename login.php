@@ -12,3 +12,4 @@
         require_once FRONTEND_INCLUDE . 'closehtml.php';
     }
 ?>
+<?php require_once 'app/backend/core/clear.php'; ?>

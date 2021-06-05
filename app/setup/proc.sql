@@ -332,6 +332,22 @@ END $$
 DELIMITER ;
 
 /*
+	PROCEDURE: GET_RATING
+*/
+DELIMITER $$
+CREATE OR REPLACE PROCEDURE `GET_RATING`
+( IN _bid INT ) 
+BEGIN 
+    SELECT FORMAT(AVG(rating), 2) AS rating 
+    FROM user, book, review 
+    WHERE 
+        review.bid = _bid 
+        AND book.bid = review.bid; 
+END
+ $$
+DELIMITER ;
+
+/*
 	PROCEDURE: GET_BOOK_REVIEWS
     Description: Get all reviews of the book by book id
     Return: table(user.name, rating, comment) 
@@ -444,5 +460,122 @@ CREATE OR REPLACE PROCEDURE `REMOVE_CART_ITEM`(
 BEGIN 
     DELETE FROM `cart`
     WHERE uid = _uid AND bid = _bid;
+END $$
+DELIMITER ;
+
+
+/**************
+ORDER
+**************/
+
+/*
+	PROCEDURE: CREATE_ORDER
+    Description: Create new order with empty item list, status is set with 'Đã đặt'
+    Param:
+        - uid: user ID
+        - checkoutTime: timestamp (DD-MM-YYYY hh:mm:ss) that user confirm to pay the cart
+    Return: TABLE(oid) contains the id of newly created order.
+*/
+DELIMITER $$
+CREATE OR REPLACE PROCEDURE `CREATE_ORDER`(
+    IN _uid INT,
+    IN _checkoutTime TEXT COLLATE utf8mb4_unicode_ci
+)
+BEGIN 
+    DECLARE maxid INT;
+    SET maxid = (SELECT COUNT(oid)
+                FROM `order`);
+
+    INSERT INTO `order`(oid, uid, checkoutTime, status)
+    VALUES (maxid, _uid, _checkoutTime, 'Đã đặt');
+
+    SELECT maxid as oid;
+END $$
+DELIMITER ;
+
+/*
+	PROCEDURE: ADD_ORDER_ITEM
+    Description: Add order item to order, use after calling CREATE_ORDER
+    Param:
+        - uid: user ID
+        - bid: book ID
+        - amount: amount of this book
+    Return: None
+*/
+DELIMITER $$
+CREATE OR REPLACE PROCEDURE `ADD_ORDER_ITEM`(
+    IN _oid INT,
+    IN _bid INT,
+    IN _amount INT
+)
+BEGIN 
+    INSERT INTO `order_item`(oid, bid, amount)
+    VALUES (_oid, _bid, _amount);
+
+END $$
+DELIMITER ;
+
+
+/*
+	PROCEDURE: GET_ALL_ORDERS
+    Description: Get all order with STATUS that the user has been checked out
+    Param:
+        - uid: user ID
+        - status: in ['all', 'Đã đặt', 'Đang giao', 'Thành công', 'Đã hủy']
+            + 'all': List all orders without filtering
+    Return: Table(oid, uid, checkoutTime, status)
+*/
+DELIMITER $$
+CREATE OR REPLACE PROCEDURE `GET_ALL_ORDERS`(
+    IN _uid INT,
+    IN _status VARCHAR(11) COLLATE utf8mb4_unicode_ci
+)
+BEGIN
+    IF(_status = 'all') THEN
+        SELECT oid, uid, checkoutTime, status 
+        FROM `order`
+        WHERE uid = _uid;
+    ELSE
+        SELECT oid, uid, checkoutTime, status 
+        FROM `order`
+        WHERE uid = _uid AND status = _status;
+    END IF;
+END $$
+DELIMITER ;
+
+
+/*
+	PROCEDURE: GET_ORDER_ITEMS
+    Description: Get all order items using order ID
+    Param:
+        - oid: order ID
+    Return: Table(bid, book.name, price, amount, status)
+*/
+DELIMITER $$
+CREATE OR REPLACE PROCEDURE `GET_ORDER_ITEMS`(
+    IN _oid INT
+)
+BEGIN
+    SELECT book.bid, book.name, book.price, order_item.amount, book.price*order_item.amount as total_price, order.status
+    FROM `order_item`, `order`, `book`
+    WHERE
+        order_item.oid = _oid
+        AND order_item.oid = order.oid
+        AND order_item.bid = book.bid ;
+END $$
+DELIMITER ;
+
+/*
+	PROCEDURE: CHANGE_ORDER_STATUS
+*/
+DELIMITER $$
+CREATE OR REPLACE PROCEDURE `CHANGE_ORDER_STATUS`(
+    IN _oid INT,
+    IN _status VARCHAR(11) COLLATE utf8mb4_unicode_ci
+)
+BEGIN
+    UPDATE `order`
+    SET status = _status
+    WHERE oid = _oid;
 END $$
 DELIMITER ;

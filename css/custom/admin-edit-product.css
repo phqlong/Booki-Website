@@ -3,6 +3,9 @@ form#admin-edit-book{
     flex-flow: row wrap;
     align-items: center;
     justify-content: space-around;
+
+    position: absolute;
+    z-index: 3;
 }
 #admin-edit-book > *{
     flex: 0 0 40%;
