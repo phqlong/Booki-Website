@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 03, 2021 at 10:08 PM
+-- Generation Time: Jun 05, 2021 at 12:50 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -38,6 +38,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ADD_BOOK` (IN `_name` TEXT, IN `_au
     );
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADD_ORDER_ITEM` (IN `_oid` INT, IN `_bid` INT, IN `_amount` INT)  BEGIN 
+    INSERT INTO `order_item`(oid, bid, amount)
+    VALUES (_oid, _bid, _amount);
+
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ADD_REVIEW` (IN `_uid` INT, IN `_bid` INT, IN `_rating` INT, IN `_comment` TEXT)  BEGIN
     INSERT INTO `review` (uid, bid, rating, comment)
     VALUES (_uid, _bid, _rating, _comment);
@@ -58,6 +64,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ADD_TO_CART` (IN `_uid` INT, IN `_b
         VALUES(_uid, _bid, 1);
     END IF;
 	
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CHANGE_ORDER_STATUS` (IN `_oid` INT, IN `_status` VARCHAR(11) COLLATE utf8mb4_unicode_ci)  BEGIN
+    UPDATE `order`
+    SET status = _status
+    WHERE oid = _oid;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `CHECK_EMAIL` (IN `_email` TEXT COLLATE utf8mb4_unicode_ci)  BEGIN
@@ -88,6 +100,17 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `CHECK_PHONE` (IN `_phone` TEXT COLL
     SELECT result;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CREATE_ORDER` (IN `_uid` INT, IN `_checkoutTime` TEXT COLLATE utf8mb4_unicode_ci)  BEGIN 
+    DECLARE maxid INT;
+    SET maxid = (SELECT COUNT(oid)
+                FROM `order`);
+
+    INSERT INTO `order`(oid, uid, checkoutTime, status)
+    VALUES (maxid, _uid, _checkoutTime, 'Đã đặt');
+
+    SELECT maxid as oid;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `CREATE_USER` (IN `uname` VARCHAR(15), IN `psswd` VARCHAR(30), IN `name` VARCHAR(50), IN `phone` VARCHAR(10), IN `email` TEXT)  BEGIN
     INSERT INTO `user`(username, password, name, phone, email, role)
     VALUES (uname, PASSWORD(psswd), name, phone, email, 'customer');
@@ -96,6 +119,18 @@ END$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `GET_ALL_BOOKS` ()  BEGIN 
 	SELECT bid,name, author, publisher, amount, description, price, image
     FROM `book`;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GET_ALL_ORDERS` (IN `_uid` INT, IN `_status` VARCHAR(11) COLLATE utf8mb4_unicode_ci)  BEGIN
+    IF(_status = 'all') THEN
+        SELECT oid, uid, checkoutTime, status 
+        FROM `order`
+        WHERE uid = _uid;
+    ELSE
+        SELECT oid, uid, checkoutTime, status 
+        FROM `order`
+        WHERE uid = _uid AND status = _status;
+    END IF;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `GET_ALL_USERS` ()  BEGIN 
@@ -116,6 +151,23 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `GET_BOOK_REVIEWS` (IN `_bid` INT)  
         review.bid = _bid
         AND book.bid = review.bid
         AND user.uid = review.uid;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GET_ORDER_ITEMS` (IN `_oid` INT)  BEGIN
+    SELECT book.bid, book.name, book.price, order_item.amount, book.price*order_item.amount as total_price, order.status
+    FROM `order_item`, `order`, `book`
+    WHERE
+        order_item.oid = _oid
+        AND order_item.oid = order.oid
+        AND order_item.bid = book.bid ;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GET_RATING` (IN `_bid` INT)  BEGIN 
+    SELECT FORMAT(AVG(rating), 2) AS rating 
+    FROM user, book, review 
+    WHERE 
+        review.bid = _bid 
+        AND book.bid = review.bid; 
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `GET_USER_BY_ID` (IN `id` INT)  BEGIN 
@@ -254,6 +306,52 @@ INSERT INTO `cart` (`cid`, `uid`, `bid`, `amount`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `order`
+--
+
+CREATE TABLE `order` (
+  `oid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `checkoutTime` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `order`
+--
+
+INSERT INTO `order` (`oid`, `uid`, `checkoutTime`, `status`) VALUES
+(0, 1, '06-06-2021 17:00:00', 'Đã đặt'),
+(1, 8, '06-06-2021 17:00:00', 'Đã đặt'),
+(2, 1, '06-06-2021 17:01:00', 'Thành công');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_item`
+--
+
+CREATE TABLE `order_item` (
+  `oid` int(11) NOT NULL,
+  `bid` int(11) NOT NULL,
+  `amount` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `order_item`
+--
+
+INSERT INTO `order_item` (`oid`, `bid`, `amount`) VALUES
+(0, 1, 10),
+(0, 3, 10),
+(1, 3, 10),
+(1, 4, 1),
+(2, 1, 3),
+(2, 5, 5);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `review`
 --
 
@@ -322,6 +420,22 @@ ALTER TABLE `cart`
   ADD KEY `bid` (`bid`);
 
 --
+-- Indexes for table `order`
+--
+ALTER TABLE `order`
+  ADD PRIMARY KEY (`oid`),
+  ADD KEY `oid` (`oid`),
+  ADD KEY `uid` (`uid`);
+
+--
+-- Indexes for table `order_item`
+--
+ALTER TABLE `order_item`
+  ADD PRIMARY KEY (`oid`,`bid`),
+  ADD KEY `oid` (`oid`),
+  ADD KEY `bid` (`bid`);
+
+--
 -- Indexes for table `review`
 --
 ALTER TABLE `review`
@@ -375,6 +489,19 @@ ALTER TABLE `user`
 ALTER TABLE `cart`
   ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`),
   ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`bid`) REFERENCES `book` (`bid`);
+
+--
+-- Constraints for table `order`
+--
+ALTER TABLE `order`
+  ADD CONSTRAINT `order_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`);
+
+--
+-- Constraints for table `order_item`
+--
+ALTER TABLE `order_item`
+  ADD CONSTRAINT `order_item_ibfk_1` FOREIGN KEY (`bid`) REFERENCES `book` (`bid`),
+  ADD CONSTRAINT `order_item_ibfk_2` FOREIGN KEY (`oid`) REFERENCES `order` (`oid`);
 
 --
 -- Constraints for table `review`
