@@ -31,8 +31,7 @@
 
             <div class="col-12 col-sm-12 col-md-9 content" id="main-content">
 
-                <div class="box">
-                    <a href="./product-detail.php">
+                <!-- <div class="box">
                     <img src="./images/black_clover.jpg" alt="#" class="img-box">
                     <div class="text">
                         <span class="five_star">
@@ -47,72 +46,7 @@
                         <p> <span class="strike-price">99.000</span> <span class="off-price">49.000 VND</span>
                         </p>
                     </div>
-                    </a>
-                </div>
-                <div class="box">
-                    <img src="./images/black_clover.jpg" alt="#" class="img-box">
-                    <div class="text">
-                        <span class="five_star">
-                            <img src="images/star.png" alt="">
-                            <img src="images/star.png" alt="">
-                            <img src="images/star.png" alt="">
-                            <img src="images/star.png" alt="">
-                            <img src="images/star.png" alt="">
-                            <span>4.8</span>
-                        </span>
-                        <h3>Dr.Stones</h3>
-                        <p> <span class="strike-price">99.000</span> <span class="off-price">49.000 VND</span>
-                        </p>
-                    </div>
-                </div>
-                <div class="box">
-                    <img src="./images/black_clover.jpg" alt="#" class="img-box">
-                    <div class="text">
-                        <span class="five_star">
-                            <img src="images/star.png" alt="">
-                            <img src="images/star.png" alt="">
-                            <img src="images/star.png" alt="">
-                            <img src="images/star.png" alt="">
-                            <img src="images/star.png" alt="">
-                            <span>4.8</span>
-                        </span>
-                        <h3>Dr.Stones</h3>
-                        <p> <span class="strike-price">99.000</span> <span class="off-price">49.000 VND</span>
-                        </p>
-                    </div>
-                </div>
-                <div class="box">
-                    <img src="./images/black_clover.jpg" alt="#" class="img-box">
-                    <div class="text">
-                        <span class="five_star">
-                            <img src="images/star.png" alt="">
-                            <img src="images/star.png" alt="">
-                            <img src="images/star.png" alt="">
-                            <img src="images/star.png" alt="">
-                            <img src="images/star.png" alt="">
-                            <span>4.8</span>
-                        </span>
-                        <h3>Dr.Stones</h3>
-                        <p> <span class="strike-price">99.000</span> <span class="off-price">49.000 VND</span>
-                        </p>
-                    </div>
-                </div>
-                <div class="box">
-                    <img src="./images/black_clover.jpg" alt="#" class="img-box">
-                    <div class="text">
-                        <span class="five_star">
-                            <img src="images/star.png" alt="">
-                            <img src="images/star.png" alt="">
-                            <img src="images/star.png" alt="">
-                            <img src="images/star.png" alt="">
-                            <img src="images/star.png" alt="">
-                            <span>4.8</span>
-                        </span>
-                        <h3>Dr.Stones</h3>
-                        <p> <span class="strike-price">99.000</span> <span class="off-price">49.000 VND</span>
-                        </p>
-                    </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
