@@ -84,8 +84,7 @@ $('#update-btn').click(function(){
 $('#cancel-btn').click(function(){
     if(!changed || confirm('Có thay đổi chưa được lưu, bạn có chắc muốn hủy chỉnh sửa không?')){
         $('#admin-edit-book').trigger('reset');
-        $('#admin-edit-book').css('display', 'none');
-
+        $('#admin-edit-book').fadeOut(200);
     }
     
 });
