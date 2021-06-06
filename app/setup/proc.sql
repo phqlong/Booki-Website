@@ -209,6 +209,21 @@ BEGIN
 END$$
 DELIMITER ;
 
+DELIMITER $$
+CREATE OR REPLACE PROCEDURE `CHANGE_ROLE_STATUS`( 
+    IN `_uname` VARCHAR(15) COLLATE utf8mb4_unicode_ci,  
+    IN `_role` VARCHAR(9) COLLATE utf8mb4_unicode_ci, 
+    IN `_active` TINYINT(1) 
+) 
+BEGIN 
+    UPDATE `user` 
+    SET 
+        role = _role,
+        active = _active
+    WHERE username = _uname; 
+END$$
+DELIMITER ;
+
 /**************
 BOOKS
 **************/
