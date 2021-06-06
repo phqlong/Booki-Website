@@ -29,7 +29,7 @@
             $_SESSION['role'] = $role;
 
             if ($role == 'customer') {
-                $_SESSION["shopping_cart"] = array();
+                $_SESSION["cart"] = array();
 
                 while (mysqli_next_result($conn)) {
                     if($result = mysqli_store_result($conn)){
@@ -42,7 +42,7 @@
                                     'item_quantity' =>  $row["quantity"],
                                     'item_image'    =>  $row["bimg"]
                                 );
-                                array_Push($_SESSION["shopping_cart"], $item_array);    
+                                array_Push($_SESSION["cart"], $item_array);    
                             }
                         }
                         mysqli_free_result($result);
