@@ -5,10 +5,6 @@ function fadeIn(elem, display){
     elem.css('display', display);
 }
 
-function fadeOut(elem, display){
-    elem.fadeOut(200);
-}
-
 init_preview = () => {
     $("#prv-image").attr('src', './images/' + $('#image-name').val());
     $('#prv-name').html($('#name').val());
