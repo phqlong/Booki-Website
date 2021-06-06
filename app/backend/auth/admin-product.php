@@ -7,18 +7,30 @@
         $result = mysqli_query($conn, $query);
 
         while($row = mysqli_fetch_assoc($result)):?>
-            <div class="card admin-product" >
-                <img class="card-img-top" src=<?php echo $row["image"]; ?> alt="Card image cap">
+            <div class="card admin admin-product" >
+                <img class="card-img-top" src="<?php echo $row["image"]; ?>" alt="Card image cap">
                 <div class="card-body">
                   <h5 class="card-title"><?php echo $row["name"]; ?></h5>
                 </div>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">
-                    <h6 class="card-subtitle mb-2 text-muted"><?php echo $row["author"]; ?></h6>
-                    <h6 class="card-subtitle mb-2 text-muted"><?php echo $row["publisher"]; ?></h6>
+                    <span class="left">Tác giả</span>
+                    <span class="right bold"><?php echo $row["author"]; ?></span>
                   </li>
-                  <li class="list-group-item">Giá: <?php echo $row["price"]; ?> VND</li>
-                  <li class="list-group-item">Số lượng: <?php echo $row["amount"]; ?></li>
+
+                  <li class="list-group-item">
+                    <span class="left">NXB</span>
+                    <span class="right bold"><?php echo $row["publisher"]; ?></span>
+                  </li>
+                  
+                  <li class="list-group-item">
+                    <span class="left">Giá</span>
+                    <span class="right bold"><?php echo number_format($row["price"], 0, '', ','); ?> VND</span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="left">Số lượng</span> 
+                    <span class="right bold"><?php echo $row["amount"]; ?></span>
+                  </li>
                 </ul>
 
                 <div class="card-footer">

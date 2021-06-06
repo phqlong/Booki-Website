@@ -41,18 +41,33 @@
     </div>
     <div class="preview">
 
-        <div class="card admin-product" >
+        <div class="card admin-product admin" >
             <img class="card-img-top" id="prv-image" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title" id="prv-name"></h5>
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    <h6 class="card-subtitle mb-2 text-muted" id="prv-author"></h6>
-                    <h6 class="card-subtitle mb-2 text-muted" id="prv-publisher"></h6>
+                    <span class="left">Tác giả</span>
+                    <span class="right bold" id="prv-author"></span>
                 </li>
-                <li class="list-group-item" id="prv-price"></li>
-                <li class="list-group-item" id="prv-amount"></li>
+
+                <li class="list-group-item">
+                    <span class="left">NXB</span>
+                    <span class="right bold" id="prv-publisher"></span>
+                </li>
+
+                <li class="list-group-item">
+                    <span class="left">Giá</span>
+                    <span class="right bold" id="prv-price"></span>
+                </li>
+
+                <li class="list-group-item">
+                    <span class="left">Số lượng</span>
+                    <span class="right bold" id="prv-amount"></span>
+                </li>
+
+                
             </ul>
         </div>    
     </div>

@@ -7,12 +7,16 @@
     position: fixed;
     background-color: rgba(250, 235, 215, 0.9);
     width: 80%;
-    top: 10%;
+    
     z-index: 5;
     max-height: 70%;
     border-radius: 1rem;
     border: solid;
     overflow-y: scroll;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 #admin-edit-book > *{
     flex: 0 0 40%;

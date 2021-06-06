@@ -8,16 +8,17 @@
             $query = "CALL GET_BOOK(\"$bid\")";
             $result = mysqli_query($conn, $query);
             while($row = mysqli_fetch_assoc($result)): 
-                $name = $row["name"];
-                $author = $row["author"];
-                $publisher = $row["publisher"];
-                $description = $row["description"];
+                $name = htmlspecialchars_decode($row["name"]);
+                $author = htmlspecialchars_decode($row["author"]);
+                $publisher = htmlspecialchars_decode($row["publisher"]);
+                $description = htmlspecialchars_decode($row["description"]);
                 $amount = $row["amount"];
-                $price = $row["price"];
-                $imageName = $row["image"];
+                $price =  $row["price"];
+                $imageName = htmlspecialchars_decode($row["image"]);
                 if($imageName == NULL){
                     $imageName = "";
                 }
+
             endwhile;     
             echo json_encode(array(
                 'name' => $name,

@@ -1,4 +1,4 @@
-#admin-product-list{
+.admin-list{
     background-color: antiquewhite;
     display: flex;
     flex-flow: row wrap;
@@ -7,37 +7,37 @@
     padding: 0 2rem;
 }
 
-.admin-product .list-group-item{
+.admin .list-group-item{
     color: black;
     background: rgba(255,255,255,0);
 }
 
-.admin-product{
+.admin{
     background-color: rgba(255,255,255,0);
     border: none;
 }
 
-#admin-product-list > *{
+.admin-list > *{
     flex: 0 0 calc(25% + 2rem);
     margin: 2rem 0;
 }
 
-.admin-product .card-title{
+.admin .card-title{
     text-align: center;
 }
 
-#admin-product-list .card-footer{
+.admin .card-footer{
     display: flex;
     justify-content: space-around;
     background-color: rgba(255,255,255,0);
     flex-flow: row wrap;
 }
 
-#admin-product-list .card-footer > *{
+.admin .card-footer > *{
     flex: 0 0 40%;
 }
 
-.admin-product > img{
+.admin > img{
     object-fit: contain;
     width: 100%;
     height: 20rem;
@@ -45,18 +45,18 @@
 
 
 @media only screen and (max-width: 1199px){
-    #admin-product-list .card-footer > *{
+    .admin .card-footer > *{
         flex: 0 0 70%;
         margin-bottom: 1rem;
     }
 }
 @media only screen and (max-width: 991px){
-    #admin-product-list > *{
+    .admin-list > *{
         flex: 0 0 calc(40% + 2rem);
     }
 }
 @media only screen and (max-width: 767px){
-    #admin-product-list > *{
+    .admin-list > *{
         flex: 0 0 calc(80% + 2rem);
     }
 }
