@@ -2,6 +2,7 @@
 @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,300;1,400;1,700&display=swap');
+@import "custom/authen-form.css";
 @import "custom/admin-product.css";
 @import "custom/admin-edit-product.css";
 @import "custom/admin-edit-user.css";

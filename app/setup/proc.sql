@@ -5,6 +5,7 @@
 /**************
 REGISTER
 **************/
+
 DELIMITER $$
 CREATE OR REPLACE PROCEDURE `CREATE_USER`(
     IN `uname` VARCHAR(15), 
@@ -84,8 +85,12 @@ LOGIN
         - psswd: password
         - _role: role (customer, admin)
     Return value: a table of (uid, username, role)
-    	- On success: return (uid, username, role) that matches the query
-    	- On failure: uid = -1, username = 'failed', role = 'failed'
+    	- On success (match usn, password, account is activated): 
+            return (uid, username, role) that matches the query
+    	- On failure: 
+            + Unmatch usn/password: uid = -1, username = '-1', role = '-1'
+            + Match usn and password, but account is deactivated:
+                uid = -2, username = '-2', role = '-2'
 */
 DELIMITER $$
 CREATE OR REPLACE PROCEDURE `VALIDATE_LOGIN`(
@@ -103,7 +108,18 @@ BEGIN
         	AND password = PASSWORD(psswd)
         	AND role = _role
     )) THEN
-    	SET id = (SELECT uid FROM `user` WHERE username=usn);
+    
+    	IF(EXISTS(
+			SELECT uid FROM `user`
+            WHERE username = usn
+            AND active = 1
+        )) THEN
+    		SET id = (SELECT uid FROM `user` WHERE username=usn);
+        ELSE
+        	SET id = -2;
+            SET usn = '-2';
+            SET _role = '-2';
+        END IF;
     ELSE
     	SET id = -1;
         SET usn = '-1';

@@ -9,6 +9,9 @@
         require_once BACKEND_AUTH . 'login.php';
         require_once FRONTEND_PAGE . 'login.php';
         require_once FRONTEND_INCLUDE . 'footer.php';
+?>
+    <script src="js/custom/login.js"></script>
+<?php
         require_once FRONTEND_INCLUDE . 'closehtml.php';
     }
 ?>
