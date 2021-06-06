@@ -1,4 +1,25 @@
 changed = false;
+
+function fadeIn(elem, display){
+    elem.fadeIn(200);
+    elem.css('display', display);
+}
+
+function fadeOut(elem, display){
+    elem.fadeOut(200);
+}
+
+init_preview = () => {
+    $("#prv-image").attr('src', './images/' + $('#image-name').val());
+    $('#prv-name').html($('#name').val());
+    $('#prv-author').html($('#author').val());
+    $('#prv-publisher').html($('#publisher').val());
+    $('#prv-amount').html($('#amount').val());
+    var price_pretty = parseInt($('#price').val()).toLocaleString();
+    $('#prv-price').html(price_pretty);
+}
+
+
 $('.btn-delete').click(function () {
     if (confirm('Xác nhận xóa sản phẩm')) {
         var bid = $(this).val();
@@ -18,6 +39,21 @@ $('.btn-delete').click(function () {
 
 });
 
+$('.btn-add').click(function(){
+    changed = false;
+    $('#admin-edit-book').trigger('reset');
+    
+    // $('#admin-edit-book').fadeIn();
+    // $('#admin-edit-book').css('display', 'flex');
+    fadeIn($('#admin-edit-book'), 'flex');
+
+    $('#update-btn').val(-1);
+    $('#update-btn').html('Thêm');
+
+    init_preview();
+});
+
+
 $('.btn-edit').click(function () {
     changed = false;
     var bid = $(this).val();
@@ -31,7 +67,8 @@ $('.btn-edit').click(function () {
         },
         dataType: "JSON",
         success: function (response) {
-            $('#admin-edit-book').css('display', 'flex');
+            fadeIn($('#admin-edit-book'), 'flex');
+            //$('#admin-edit-book').css('display', 'flex');
             $('#name').val(response.name);
             $('#author').val(response.author);
             $('#publisher').val(response.publisher);
@@ -42,14 +79,9 @@ $('.btn-edit').click(function () {
             $('#image-name').val(response.imageName.split('/')[2]);
 
             $('#update-btn').val(bid);
+            $('#update-btn').html('Cập nhật');
 
-            $("#prv-image").attr('src', response.imageName);
-            $('#prv-name').html(response.name);
-            $('#prv-author').html(response.author);
-            $('#prv-publisher').html(response.publisher);
-            $('#prv-amount').html(response.amount);
-            var price_pretty = parseInt(response.price).toLocaleString();
-            $('#prv-price').html(price_pretty);
+            init_preview()
         }
     });
 

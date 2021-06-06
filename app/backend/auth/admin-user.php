@@ -48,8 +48,7 @@
                 </ul>
 
                 <div class="card-footer">
-                  <button type="button" class="btn btn-primary btn-edit" value="<?php echo $row["bid"];?>">Chỉnh sửa</button>
-                  <button type="button" class="btn btn-danger btn-delete" value="<?php echo $row["bid"];?>">Xóa</button>
+                  <button type="button" class="btn btn-primary btn-edit" value="<?php echo $row["username"];?>">Chỉnh sửa</button>
                 </div>
             </div>     
 

@@ -1,4 +1,4 @@
-<form method="post" id="admin-edit-book" name="admin-edit-book">
+<form method="post" id="admin-edit-book" class="admin-edit" name="admin-edit-book">
     <div class="edit">
         <div class="form-group">
             <label for="name">Tên: <span class="admin-edit-warning"></span></label>
@@ -35,8 +35,11 @@
             <label for="image">Tên file: <span class="admin-edit-warning"></span></label>
             <input type="text" class="form-control" id="image-name" name="image-name"> 
         </div>
-        <button type="button" class="btn btn-primary" name="updated" id="update-btn">Cập nhật</button>
-        <button type="button" class="btn btn-primary" name="updated" id="cancel-btn">Hủy bỏ</button>
+        <div class="btn-list">
+            <button type="button" class="btn btn-success" name="updated" id="update-btn">Cập nhật</button>
+            <button type="button" class="btn btn-danger" name="updated" id="cancel-btn">Hủy bỏ</button>
+        </div>
+        
 
     </div>
     <div class="preview">
