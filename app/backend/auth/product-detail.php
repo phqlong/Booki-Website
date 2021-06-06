@@ -50,7 +50,6 @@ if (isset($_POST["buy_now"])) {
             } else {
                 //echo '<script>alert("Item Already Added")</script>';
             }
-            
         } else {
             $item_array = array(
                 'item_id'            =>    $_GET["id"],
@@ -66,4 +65,23 @@ if (isset($_POST["buy_now"])) {
         header('Location: login.php');
     }
 }
-?>
+if (isset($_POST["comment-submit"])) {
+    if (isLoggedIn() && getRole() == 'customer') {
+        $comment = $_POST['cmt'];
+        $rate = $_POST['rate'];
+        $id = $_GET["id"];
+        $uid = "";
+        $sql = 'SELECT uid FROM user WHERE username ="'. getUsername().'"';
+        $result = mysqli_query($conn, $sql);
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                $uid = $row['uid'];
+            }
+        }
+        $sql = "CALL ADD_REVIEW('$uid','$id','$rate','$comment')";
+        $result = mysqli_query($conn, $sql);
+    } else {
+        header('Location: login.php');
+    }
+}
+
