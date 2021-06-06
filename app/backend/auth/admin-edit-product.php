@@ -1,9 +1,9 @@
 <?php
     require_once 'app/backend/core/init.php';
-    $bid = "";
-    $name = $author = $publisher = $description = $amount = $price = $imageName = "";
-    if($_SERVER["REQUEST_METHOD"] == "GET"):
-        if(isset($_GET["bid"])):
+    
+    if($_SERVER["REQUEST_METHOD"] == "GET"){
+        if($_GET["edit_rq"] == "show_info"){
+
             $bid = $_GET["bid"];
             $query = "CALL GET_BOOK(\"$bid\")";
             $result = mysqli_query($conn, $query);
@@ -15,30 +15,52 @@
                 $amount = $row["amount"];
                 $price = $row["price"];
                 $imageName = $row["image"];
-            endwhile;        
+                if($imageName == NULL){
+                    $imageName = "";
+                }
+            endwhile;     
+            echo json_encode(array(
+                'name' => $name,
+                'author' => $author,
+                'publisher' => $publisher,
+                'description' => $description,
+                'amount' => $amount,
+                'price' => $price,
+                'imageName' => $imageName
+            ));
+        }
         
-        elseif(isset($_GET["deleteBid"])):
-            $bid = $_GET["deleteBid"];
+        else if(($_GET["edit_rq"] == "delete")){
+            $bid = $_GET["bid"];
             $query = "CALL REMOVE_BOOK(\"$bid\")";
             mysqli_query($conn, $query);
-            unset($_GET["deleteBid"]);
-            header("Location: admin-product.php");
-        endif;
-    endif;
-
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        if($_POST['updated'] == 'confirm'){
-            $name = $_POST['name'];
-            $author = $_POST['author'];
-            $publisher = $_POST['publisher'];  
-            $description = $_POST['description'];
-            $amount = $_POST['amount'];
-            $price = $_POST['price'];
-            $image = $_POST["image"];
-            $imageName = './images/'.$_POST['image-name'];
-            
-            var_dump($image);
         }
+    }
+
+    else if($_SERVER['REQUEST_METHOD'] == 'POST'){ 
+        $bid = $_POST['bid'];
+        $name = htmlspecialchars($_POST['name']);
+        $author = htmlspecialchars($_POST['author']);
+        $publisher = htmlspecialchars($_POST['publisher']);
+        $description = htmlspecialchars($_POST['description']);
+        $amount = $_POST['amount'];
+        $price = $_POST['price'];
+        $image = $_POST["image"];
+        $imageName = htmlspecialchars('./images/'.$_POST['image-name']);
+        
+        $query = "CALL ADD_OR_UPDATE_BOOK(
+            $bid,
+            \"$name\",
+            \"$author\",
+            \"$publisher\",
+            \"$description\",
+            \"$imageName\", 
+            $amount,
+            $price
+        )";
+        echo mysqli_query($conn, $query);
+        
+            
     }
 ?>
             
