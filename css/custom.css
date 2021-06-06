@@ -8,6 +8,8 @@
 @import "custom/ProductStyle.css";
 @import "custom/product-detail.css";
 @import "custom/cart.css";
+@import "custom/checkout.css";
+
 body {
     background-color: #f9e1e0 !important;
     font-size: 18px;

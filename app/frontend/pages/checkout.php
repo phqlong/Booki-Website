@@ -15,30 +15,41 @@
         <div class="col-md-4 order-md-2 mb-4">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
                 <span class="text-muted">Giỏ hàng</span>
-                <span class="badge badge-secondary badge-pill"><?php echo count($_SESSION["cart"]); ?></span>
+                <span class="badge badge-success badge-pill"><?php echo count($_SESSION["cart"]); ?></span>
             </h4>
+
             <ul class="list-group mb-3">
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Product name</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">$12</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Second product</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">$8</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                        <h6 class="my-0">Third item</h6>
-                        <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">$5</span>
-                </li>
+                
+                <?php
+                if (!empty($_SESSION["cart"])) {
+                    $total = 0;
+                    $data ="";
+                    foreach ($_SESSION["cart"] as $keys => $values) {
+                        $data .='
+                            <li class="list-group-item d-flex lh-condensed">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <img src='.$values['item_image'].'>
+                                    </div>
+
+                                    <div class="col-5">
+                                        <h6 class="my-0">'.$values["item_name"].'</h6>
+                                        <small class="text-muted">Đơn giá: '.$values["item_price"].'</small><br/>
+                                        <small class="text-muted">Số lượng: </small>
+                                        <span class="badge badge-primary badge-pill">'.$values["item_quantity"].'</span>
+                                    </div>
+
+                                    <div class="col-4">                            
+                                        <span class="text-muted">'.($values["item_quantity"] * $values["item_price"]).' đ</span>
+                                    </div>
+                                </div>
+                            </li>';
+                        $total +=  ($values["item_quantity"] * $values["item_price"]);
+                    }
+                    echo $data;
+                }
+                ?>
+
                 <li class="list-group-item d-flex justify-content-between bg-light">
                     <div class="text-success">
                         <h6 class="my-0">Promo code</h6>
@@ -47,8 +58,8 @@
                     <span class="text-success">-$5</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between">
-                    <span>Total (USD)</span>
-                    <strong>$20</strong>
+                    <span>Tổng cộng (VNĐ)</span>
+                    <strong><?php echo number_format($total); ?> đ</strong>
                 </li>
             </ul>
 
@@ -65,6 +76,7 @@
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Thông tin giao hàng</h4>
             <form class="needs-validation" novalidate>
+                
                 <div class="mb-3">
                     <label for="fullName">Họ và tên (*)</label>
                     <input type="text" class="form-control" id="fullName" placeholder="Bắt buộc" value="" required>
@@ -143,15 +155,15 @@
                     <div class="col-md-6 mb-3">
                         <h4 class="mb-3">Phương thức vận chuyển</h4>
 
-                        <div class="d-block my-2">
+                        <div class="d-block my-3">
                             <div class="custom-control custom-radio">
                                 <input id="standard" name="shippingMethod" type="radio" class="custom-control-input" checked required>
                                 <label class="custom-control-label" for="standard">Giao hàng tiêu chuẩn: 25,000đ</label>
                             </div>
 
                             <div class="custom-control custom-radio">
-                                <input id="standard" name="shippingMethod" type="radio" class="custom-control-input" checked required>
-                                <label class="custom-control-label" for="standard">Giao hàng nhanh: 50,000đ</label>
+                                <input id="fast" name="shippingMethod" type="radio" class="custom-control-input" required>
+                                <label class="custom-control-label" for="fast">Giao hàng nhanh: 50,000đ</label>
                             </div>
                         </div>
                     </div>
