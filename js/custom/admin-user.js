@@ -11,3 +11,7 @@ window.onload = () => {
         }
     });
 }
+
+$('.btn-edit').click(function(){
+    $('#admin-edit-user').css('display', 'flex');
+})

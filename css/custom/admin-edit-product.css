@@ -1,5 +1,5 @@
 
-#admin-edit-book{
+.admin-edit{
     display: none;
     flex-flow: row wrap;
     align-items: center;
@@ -17,9 +17,14 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
-#admin-edit-book > *{
-    flex: 0 0 40%;
+.admin-edit > *{
+    flex: 1 1 40%;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 .preview .admin-product{
     align-self: center;
@@ -27,4 +32,11 @@
 }
 .admin-edit-warning{
     color: red;
+}
+.btn-list{
+    display: flex;
+    justify-content: space-around;
+}
+.btn-list > *{
+    flex: 0 0 40%;
 }

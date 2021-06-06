@@ -4,7 +4,7 @@
         require_once FRONTEND_INCLUDE . 'header.php';
         require_once FRONTEND_INCLUDE . 'navbar.php';
         require_once BACKEND_AUTH . 'admin-user.php';
-        //require_once FRONTEND_PAGE . 'admin-edit-user.php';
+        require_once FRONTEND_PAGE . 'admin-edit-user.php';
         require_once FRONTEND_PAGE . 'admin-user.php';
         require_once FRONTEND_INCLUDE . 'footer.php';
 ?>
