@@ -15,10 +15,10 @@
 
             <tbody class="detail-cart">
                 <?php
-                if (!empty($_SESSION["shopping_cart"])) {
+                if (!empty($_SESSION["cart"])) {
                     $total = 0;
                     $data ="";
-                    foreach ($_SESSION["shopping_cart"] as $keys => $values) {
+                    foreach ($_SESSION["cart"] as $keys => $values) {
                         $data .='
                             <tr>
                                 <td><p class="text-left"><img src='.$values['item_image'].'><a href="product-detail.php?id='.$values["item_id"].'">'.$values["item_name"].'</a></p></td>
@@ -41,8 +41,8 @@
             </tbody>
         </table>
         <div class="text-center">
-            <button class="btn btn-success" > Đặt hàng </button>
-            <button class="btn btn-info" > Tiếp tục mua hàng </button>
+            <a href="checkout.php" class="btn btn-success" > Đặt hàng </a>
+            <a href="product.php"  class="btn btn-info" > Tiếp tục mua hàng </a>
         </div>
     </div>
 </div>

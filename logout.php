@@ -8,7 +8,7 @@
         $query = "CALL REMOVE_ALL_CART_ITEM(\"$username\")";
         
         if (mysqli_query($conn, $query)) {
-            foreach($_SESSION["shopping_cart"] as $keys => $values)
+            foreach($_SESSION["cart"] as $keys => $values)
             {
                 $bid = $values["item_id"];
                 $bquantity = $values["item_quantity"];
@@ -19,7 +19,7 @@
         } else {
             echo "Error deleting record: " . mysqli_error($conn);
         }
-        unset($_SESSION['shopping_cart']);
+        unset($_SESSION['cart']);
     }
 
     unset($_SESSION['username']);
