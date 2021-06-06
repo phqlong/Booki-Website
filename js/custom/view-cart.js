@@ -1,6 +1,6 @@
 function changeQuatity(id,quantity) {
     $.ajax({
-        url: 'cart-fetch.php',
+        url: 'cart.php',
         type: 'post',
         data: {
             update_quantity: quantity,
