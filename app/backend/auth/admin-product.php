@@ -22,8 +22,8 @@
                 </ul>
 
                 <div class="card-footer">
-                  <a href="admin-edit-product.php?bid=<?php echo $row["bid"]?>" class="btn btn-primary">Chỉnh sửa</a>
-                  <a href="admin-edit-product.php?deleteBid=<?php echo $row["bid"]?>" class="btn btn-danger">Xóa</a>
+                  <button type="button" class="btn btn-primary btn-edit" value="<?php echo $row["bid"];?>">Chỉnh sửa</button>
+                  <button type="button" class="btn btn-danger btn-delete" value="<?php echo $row["bid"];?>">Xóa</button>
                 </div>
             </div>     
 

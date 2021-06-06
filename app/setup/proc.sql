@@ -272,29 +272,46 @@ END $$
 DELIMITER ;
 
 /*
-	Procedure: ADD_BOOK
+	Procedure: ADD_OR_UPDATE_BOOK
+    Param notes:
+        - _bid = -1: ADD, otherwise: Update and _bid.
 */
 DELIMITER $$
-CREATE OR REPLACE PROCEDURE `ADD_BOOK`(
-    IN `_name` TEXT,
-    IN `_author` TEXT,
-    IN `_publisher` TEXT,
-    IN `_description` TEXT,
-    IN `_image` TEXT,
+CREATE OR REPLACE PROCEDURE `ADD_OR_UPDATE_BOOK`(
+    IN `_bid` INT,
+    IN `_name` TEXT COLLATE utf8mb4_unicode_ci,
+    IN `_author` TEXT COLLATE utf8mb4_unicode_ci,
+    IN `_publisher` TEXT COLLATE utf8mb4_unicode_ci,
+    IN `_description` TEXT COLLATE utf8mb4_unicode_ci,
+    IN `_image` TEXT COLLATE utf8mb4_unicode_ci,
     IN `_amount` INT,
     IN `_price` INT
 )
 BEGIN 
-	INSERT INTO `book` (name, description, author, publisher, image, amount, price)
-    VALUES(
-        _name,
-        _description,
-        _author,
-        _publisher,
-        _image,
-        _amount,
-        _price
-    );
+    IF(_bid = -1) THEN
+	    INSERT INTO `book` (name, description, author, publisher, image, amount, price)
+        VALUES(
+            _name,
+            _description,
+            _author,
+            _publisher,
+            _image,
+            _amount,
+            _price
+        );
+    ELSE
+        UPDATE `book`
+        SET 
+            name = _name,
+            author = _author,
+            publisher = _publisher,
+            description = _description,
+            image = _image,
+            amount = _amount,
+            price = _price
+
+        WHERE bid = _bid;
+    END IF;
 END $$
 DELIMITER ;
 
@@ -571,7 +588,7 @@ DELIMITER ;
     Description: Get all order items using order ID
     Param:
         - oid: order ID
-    Return: Table(bid, book.name, price, amount, status)
+    Return: Table(bid, book.name, price, amount, totol_price, status)
 */
 DELIMITER $$
 CREATE OR REPLACE PROCEDURE `GET_ORDER_ITEMS`(

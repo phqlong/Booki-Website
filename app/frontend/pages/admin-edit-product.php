@@ -2,28 +2,28 @@
     <div class="edit">
         <div class="form-group">
             <label for="name">Tên: <span class="admin-edit-warning"></span></label>
-            <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars($name);?>">
+            <input type="text" class="form-control" id="name" name="name">
         </div>
         <div class="form-group">   
             <label for="author">Tác giả: <span class="admin-edit-warning"></span></label>
-            <input type="text" class="form-control" id="author" name="author" value="<?php echo htmlspecialchars($author);?>">
+            <input type="text" class="form-control" id="author" name="author">
         </div>
         <div class="form-group">
             <label for="publisher">NXB: <span class="admin-edit-warning"></span></label>
-            <input type="text" class="form-control" id="publisher" name="publisher" value="<?php echo htmlspecialchars($publisher);?>">
+            <input type="text" class="form-control" id="publisher" name="publisher">
         </div>
         
         <div class="form-group">
             <label for="description">Mô tả: </label>
-            <textarea class="form-control" id="description" name="description" rows="10"><?php echo ($description);?></textarea>
+            <textarea class="form-control" id="description" name="description" rows="10"></textarea>
         </div>
         <div class="form-group">
             <label for="amount">Số lượng: <span class="admin-edit-warning"></span></label>
-            <input type="number" min="0" class="form-control" id="amount" name="amount" value="<?php echo htmlspecialchars($amount);?>">
+            <input type="number" min="0" class="form-control" id="amount" name="amount">
         </div>
         <div class="form-group">
             <label for="price">Giá: <span class="admin-edit-warning"></span></label>
-            <input type="number" min="0" class="form-control" id="price" name="price" value="<?php echo htmlspecialchars($price);?>">
+            <input type="number" min="0" class="form-control" id="price" name="price">
         </div>
         <div class="form-group">
             <label for="image">Hình ảnh: </label>
@@ -33,26 +33,26 @@
 
         <div class="form-group">
             <label for="image">Tên file: <span class="admin-edit-warning"></span></label>
-            <input type="text" class="form-control" id="image-name" name="image-name" value="<?php echo htmlspecialchars(explode('/', $imageName)[2]);?>"> 
+            <input type="text" class="form-control" id="image-name" name="image-name"> 
         </div>
-        <button type="submit" class="btn btn-primary" name="updated" id="update-btn" value="confirm">Cập nhật</button>
-        <button type="submit" class="btn btn-primary" name="updated" id="cancel-btn" value="cancel">Hủy bỏ</button>
+        <button type="button" class="btn btn-primary" name="updated" id="update-btn">Cập nhật</button>
+        <button type="button" class="btn btn-primary" name="updated" id="cancel-btn">Hủy bỏ</button>
 
     </div>
     <div class="preview">
 
         <div class="card admin-product" >
-            <img class="card-img-top" id="prv-image" src=<?php echo $imageName; ?> alt="Card image cap">
+            <img class="card-img-top" id="prv-image" alt="Card image cap">
             <div class="card-body">
-                <h5 class="card-title" id="prv-name"><?php echo $name; ?></h5>
+                <h5 class="card-title" id="prv-name"></h5>
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    <h6 class="card-subtitle mb-2 text-muted" id="prv-author"><?php echo $author; ?></h6>
-                    <h6 class="card-subtitle mb-2 text-muted" id="prv-publisher"><?php echo $publisher; ?></h6>
+                    <h6 class="card-subtitle mb-2 text-muted" id="prv-author"></h6>
+                    <h6 class="card-subtitle mb-2 text-muted" id="prv-publisher"></h6>
                 </li>
-                <li class="list-group-item" id="prv-price">Giá: <?php echo $price; ?> VND</li>
-                <li class="list-group-item" id="prv-amount">Số lượng: <?php echo $amount; ?></li>
+                <li class="list-group-item" id="prv-price"></li>
+                <li class="list-group-item" id="prv-amount"></li>
             </ul>
         </div>    
     </div>

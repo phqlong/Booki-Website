@@ -41,16 +41,38 @@ $('#update-btn').click(function(){
             valid=false;
         }
     })
-    console.log(valid);
-    if(!(valid)){
-        $(this).attr("type", "button");
+    
+    if(valid){
+        var bid = $(this).val();
+        var formdata = new FormData($('form#admin-edit-book')[0]);
+        formdata.append('bid', bid);
+        $.ajax({
+            type: "POST",
+            url: "admin-edit-product.php",
+            
+            cache: false,
+            processData: false,
+            contentType: false,
+            data: formdata,
+            
+            success: function (response) {
+
+                if(response == 1){
+                    alert('Cập nhật thành công!');
+                    location.reload();
+                }
+                else{
+                    alert('Cập nhật thất bại, vui lòng thử lại sau.');
+                }
+            }
+        });
     }
-    else{
-        $(this).attr("type", "submit");
-    }
+
     
 });
-
+$('#cancel-btn').click(function(){
+    $('#admin-edit-book').css('display', 'none');
+});
 
 var validator = {
     "name": (jObj) =>{
