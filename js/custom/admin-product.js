@@ -1,3 +1,4 @@
+changed = false;
 $('.btn-delete').click(function () {
     if (confirm('Xác nhận xóa sản phẩm')) {
         var bid = $(this).val();
@@ -18,6 +19,7 @@ $('.btn-delete').click(function () {
 });
 
 $('.btn-edit').click(function () {
+    changed = false;
     var bid = $(this).val();
 
     $.ajax({
@@ -45,8 +47,9 @@ $('.btn-edit').click(function () {
             $('#prv-name').html(response.name);
             $('#prv-author').html(response.author);
             $('#prv-publisher').html(response.publisher);
-            $('#prv-amount').html('Số lượng: ' + response.amount);
-            $('#prv-price').html('Giá: ' + response.price + ' VND');
+            $('#prv-amount').html(response.amount);
+            var price_pretty = parseInt(response.price).toLocaleString();
+            $('#prv-price').html(price_pretty);
         }
     });
 

@@ -1,31 +1,42 @@
 // Preview
 $('#name').change(function () { 
+    changed = true;
     $('#prv-name').html($('#name').val());
 });
 
 $('#author').change(function () { 
+    changed = true;
     $('#prv-author').html($('#author').val());
 });
 
 $('#publisher').change(function () { 
+    changed = true;
     $('#prv-publisher').html($('#publisher').val());
 });
 
 $('#amount').change(function () { 
-    $('#prv-amount').html('Số lượng: ' + $('#amount').val());
+    changed = true;
+    $('#prv-amount').html($('#amount').val());
 });
 
 $('#price').change(function () { 
-    $('#prv-price').html('Giá: ' + $('#price').val() + ' VND');
+    changed = true;
+    var price_pretty = parseInt($('#price').val()).toLocaleString();
+    $('#prv-price').html(price_pretty);
 });
 
 $("#image").change(function(){
+    changed = true;
     if(this.files && this.files[0]){
         $('#prv-image').on('load', () => {
             URL.revokeObjectURL($('#prv-image').attr('src'));
         });
         $('#prv-image').attr('src', URL.createObjectURL(this.files[0]));
     }
+});
+
+$("#description").change(function() { 
+    changed = true;
 });
 
 //Warning
@@ -71,7 +82,10 @@ $('#update-btn').click(function(){
     
 });
 $('#cancel-btn').click(function(){
-    $('#admin-edit-book').css('display', 'none');
+    if(!changed || confirm('Có thay đổi chưa được lưu, bạn có chắc muốn hủy chỉnh sửa không?')){
+        $('#admin-edit-book').css('display', 'none');
+    }
+    
 });
 
 var validator = {
