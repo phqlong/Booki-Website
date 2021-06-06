@@ -1,16 +1,19 @@
 <?php
-if(isset($_GET["action"]))
-{
-	if($_GET["action"] == "delete")
-	{
-		foreach($_SESSION["shopping_cart"] as $keys => $values)
+if (isset($_POST['update_quantity'])){
+    foreach($_SESSION["shopping_cart"] as $keys => $values)
 		{
-			if($values["item_id"] == $_GET["id"])
+			if($values["item_id"] == $_POST["id"])
 			{
-				unset($_SESSION["shopping_cart"][$keys]);
-				echo '<script>window.location="cart.php"</script>';
+				$new_quantity = $_POST["update_quantity"];
+				if ($new_quantity > 0) {
+					$_SESSION["shopping_cart"][$keys]["item_quantity"] = $new_quantity;
+				}
+				else {
+					unset($_SESSION["shopping_cart"][$keys]);
+				}
+				echo 'success';
 			}
-		}
-	}
+		}    
+    echo 'error';
 }
 ?>
