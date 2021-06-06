@@ -199,13 +199,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `REMOVE_ALL_CART_ITEM`(IN `usn` VARC
     DELETE FROM `cart` WHERE uid = @uid;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SHOW_CART_ITEMS` (IN `_uid` INT)  BEGIN 
-	SELECT book.name, cart.amount, book.price, cart.amount*book.price as total_price
-    FROM `book`, `user`, `cart`
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SHOW_CART_ITEMS` (IN `usn` VARCHAR(15) COLLATE utf8mb4_unicode_ci)  BEGIN 
+	SELECT book.bid as bid, book.name as bname, cart.amount as quantity, book.price as bprice, book.image as bimg
+    FROM `book`, `cart`
     WHERE
         cart.uid = _uid 
-        AND cart.bid = book.bid
-        AND cart.uid = user.uid;
+        AND cart.bid = book.bid;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `UPDATE_BOOK_INFO` (IN `id` INT, IN `_name` TEXT COLLATE utf8mb4_unicode_ci, IN `_author` TEXT COLLATE utf8mb4_unicode_ci, IN `_publisher` TEXT COLLATE utf8mb4_unicode_ci, IN `_description` TEXT COLLATE utf8mb4_unicode_ci, IN `_image` TEXT COLLATE utf8mb4_unicode_ci, IN `_amount` INT, IN `_price` INT)  BEGIN 

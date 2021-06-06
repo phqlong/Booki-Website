@@ -382,11 +382,13 @@ CREATE OR REPLACE PROCEDURE `SHOW_CART_ITEMS`(
     IN `usn` VARCHAR(15) COLLATE utf8mb4_unicode_ci
 )
 BEGIN 
+    DECLARE _uid INT;
+    SET _uid = (SELECT uid FROM `user` WHERE username = usn);
+
 	SELECT book.bid as bid, book.name as bname, cart.amount as quantity, book.price as bprice, book.image as bimg
-    FROM `book`, `user`, `cart`
+    FROM `book`, `cart`
     WHERE
-        user.username = usn 
-        AND cart.uid = user.uid
+        cart.uid = _uid 
         AND cart.bid = book.bid;
 END $$
 DELIMITER ;
