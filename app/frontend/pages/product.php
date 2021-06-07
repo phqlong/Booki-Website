@@ -4,21 +4,21 @@
         <div class="row">
             <div class="col-12 col-sm-12 col-md-3 filter">
                 <div>
-                    <h4 class="border-bottom">Thể loại</h4>
+                    <h4 class="border-bottom"><b>Thể loại</b></h4>
                     <ul>
                         <li><a href=#>Học đường</a></li>
                         <li><a href=#>Hài</a></li>
                         <li><a href=#>Khám phá</a></li>
                         <li><a href=#>Hành động</a></li>
                     </ul>
-                    <h4 class="border-bottom">Giá</h4>
+                    <h4 class="border-bottom"><b>Giá</b></h4>
                     <ul>
                         <li><a href=#>0đ-150,000đ</a></li>
                         <li><a href=#>150.000đ-300.000đ</a></li>
                         <li><a href=#>300.000đ-500.000đ</a></li>
                         <li><a href=#>500.000đ trở lên</a></li>
                     </ul>
-                    <h4 class="border-bottom">Đánh giá</h4>
+                    <h4 class="border-bottom"><b>Đánh giá</b></h4>
                     <ul>
                         <li><a href=#>1 sao</a></li>
                         <li><a href=#>2 sao</a></li>

@@ -12,14 +12,6 @@ if (isset($_POST['viewproducts'])){
                     <a href="./product-detail.php?id='.$row['bid'].'">
                     <img src="'.$row["image"].'" alt="#" class="img-box">
                     <div class="text">
-                        <span class="five_star">
-                            <img src="images/star.png" alt="">
-                            <img src="images/star.png" alt="">
-                            <img src="images/star.png" alt="">
-                            <img src="images/star.png" alt="">
-                            <img src="images/star.png" alt="">
-                            <span>4.8</span>
-                        </span>
                         <h3>'.$row['name'].'</h3>
                         <p><span class="off-price">'.$row['price'].'VND</span>
                         </p>
