@@ -8,8 +8,10 @@
         require_once FRONTEND_PAGE . 'admin-product.php';
         require_once FRONTEND_INCLUDE . 'footer.php';
 ?>
+    
     <script src="js/custom/admin-product.js"></script>
     <script src="js/custom/admin-edit-product.js"></script>
+    
 <?php
         require_once FRONTEND_INCLUDE . 'closehtml.php';
     }
