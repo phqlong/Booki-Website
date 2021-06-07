@@ -16,8 +16,6 @@
                         <option value="Đã hủy">Đã hủy</option>
                     </select>
                 </div>
-                
-
             </div>
             <div class="form-group col-md-12 col-lg-4 offset-lg-1">
                 <label for="admin-order-search-usn" class="text-body">Tên đăng nhập</label>

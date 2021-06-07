@@ -14,21 +14,22 @@ $('#admin-order-search-btn').click(()=>{
 var obConf = {childList: true};
 
 var order_observer = new MutationObserver(()=>{
-    $('button.edit-status-btn').click(()=>{ 
-        console.log($(this)[0])
-        var username = $(this).parents("td").siblings(".username").html();
+    $('.edit-status-btn').click(function () { 
+        var username = $(this).parents().siblings(".username").html();
         var name = $(this).parent().siblings(".name").html();
         var oid = $(this).parent().siblings(".oid").html();
         console.log(username);
         console.log(oid);
         console.log(name);
-        $('#username').html(1);
+        $('#username').html(username);
         $('#name').html(name);
         $('oid').html(oid);
         $('#admin-edit-order').css('display', 'flex');
+        
     });
 });
-order_observer.observe($('#admin-order-result-body')[0], obConf)
+
+order_observer.observe($('#admin-order-result-body')[0], obConf);
 
 
 var fetch_order = () => {

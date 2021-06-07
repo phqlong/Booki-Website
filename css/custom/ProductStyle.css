@@ -96,6 +96,9 @@
   
 }
 
+.price-package li a{
+    color: black;
+}
 /* .price-package {
     
     background-color: #e4e3e3;
