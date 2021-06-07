@@ -10,6 +10,7 @@
 ?>
     <script src="js/custom/admin-user.js"></script>
     <script src="js/custom/admin-edit-user.js"></script>
+    
 <?php
         require_once FRONTEND_INCLUDE . 'closehtml.php';
     }
