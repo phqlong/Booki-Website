@@ -1,7 +1,3 @@
-
-  
-</body>
-</html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,11 +20,7 @@
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/custom.css">
-    <link rel="stylesheet" href="css/all.min.css">
-
-
-
-    
+    <link rel="stylesheet" href="css/all.min.css">    
     <link rel="icon" type="image/png" href="images/icon.png"/>
 </head>
 <body style="font-family: 'Open Sans', sans-serif;">
