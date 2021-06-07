@@ -3,6 +3,7 @@
     if(isLoggedIn() && getRole() == 'admin'){
         require_once FRONTEND_INCLUDE . 'header.php';
         require_once FRONTEND_INCLUDE . 'navbar.php';
+        require_once FRONTEND_PAGE . 'admin-edit-order.php';
         require_once FRONTEND_PAGE . 'admin-order.php';
         require_once FRONTEND_INCLUDE . 'footer.php';
 ?>

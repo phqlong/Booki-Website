@@ -10,3 +10,4 @@ define('FRONTEND_ASSET', 'app/frontend/assets/');
 if ($_SERVER['REQUEST_URI'] == '/start.php'):
     header('Location: index.php');
 endif; 
+?>
