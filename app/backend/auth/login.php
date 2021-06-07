@@ -35,12 +35,14 @@
 
             if ($role == 'customer') {
                 $_SESSION["cart"] = array();
-
+                
+                mysqli_more_result($conn);
                 while (mysqli_next_result($conn)) {
                     if($result = mysqli_store_result($conn)){
                         if (mysqli_num_rows($result) > 0) {
                             while($row = mysqli_fetch_assoc($result)){
                                 $item_array = array(
+
                                     'item_id'       =>  $row["bid"],
                                     'item_name'     =>  $row["bname"],
                                     'item_price'    =>  $row["bprice"],
