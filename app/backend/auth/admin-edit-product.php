@@ -3,10 +3,11 @@
     
     if($_SERVER["REQUEST_METHOD"] == "GET"){
         if($_GET["edit_rq"] == "show_info"){
-
+            
             $bid = $_GET["bid"];
             $query = "CALL GET_BOOK(\"$bid\")";
             $result = mysqli_query($conn, $query);
+
             while($row = mysqli_fetch_assoc($result)): 
                 $name = htmlspecialchars_decode($row["name"]);
                 $author = htmlspecialchars_decode($row["author"]);
@@ -15,8 +16,9 @@
                 $amount = $row["amount"];
                 $price =  $row["price"];
                 $imageName = htmlspecialchars_decode($row["image"]);
-                if($imageName == NULL){
-                    $imageName = "";
+                
+                if(is_null($imageName)){
+                    $imageName = "abc";
                 }
 
             endwhile;     

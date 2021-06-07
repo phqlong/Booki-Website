@@ -1,5 +1,5 @@
 
-#admin-edit-book{
+.admin-edit{
     display: none;
     flex-flow: row wrap;
     align-items: center;
@@ -8,7 +8,7 @@
     background-color: rgba(250, 235, 215, 0.9);
     width: 80%;
     
-    z-index: 5;
+    z-index: 99;
     max-height: 70%;
     border-radius: 1rem;
     border: solid;
@@ -17,9 +17,17 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
+    padding-top: 2rem;
+    padding-bottom: 2rem;
 }
-#admin-edit-book > *{
-    flex: 0 0 40%;
+.admin-edit > *{
+    flex: 1 1 40%;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+.edit{
+    width: 70%;
 }
 .preview .admin-product{
     align-self: center;
@@ -27,4 +35,18 @@
 }
 .admin-edit-warning{
     color: red;
+}
+.btn-list{
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row wrap;
+}
+.btn-list > *{
+    flex: 0 0 40%;
+    margin: 0.5rem;
+}
+@media only screen and (max-width: 991px){
+    .btn-list > *{
+        flex: 0 0 70%;
+    }
 }

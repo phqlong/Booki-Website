@@ -1,0 +1,40 @@
+.authen-form{
+    display: flex;
+    width: 35rem;
+    flex-flow: row wrap;
+    justify-content: center;
+    border-radius: 1rem;
+    border: solid #EC2F0E;
+    background-color: white;
+}
+.authen-form > *{
+    flex: 0 0 80%;
+}
+.authen-form label{
+    color: black
+}
+.authen-form input{
+    border-radius: 3rem;
+    border-color: black;
+}
+
+.authen-form select{
+    height: 5rem;
+    border-radius: 3rem;
+    border-color: black;
+}
+
+.authen-form option{
+    height: 5rem;
+    border-radius: 3rem;
+    border-color: black;
+}
+.login-warning{
+    color: #EC2F0E;
+}
+
+@media only screen and (max-width: 575px){
+    .authen-form{
+        width: 100%;
+    }
+}

@@ -2,8 +2,10 @@
 @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,300;1,400;1,700&display=swap');
+@import "custom/authen-form.css";
 @import "custom/admin-product.css";
 @import "custom/admin-edit-product.css";
+@import "custom/admin-edit-user.css";
 @import "custom/ProductStyle.css";
 @import "custom/product-detail.css";
 @import "custom/cart.css";
@@ -57,11 +59,19 @@ h1, h2, h3, h4, h5, h6 {
 
 }
 
-a.btn.btn-danger:hover{
+.btn:hover{
     background: transparent;
+}
+.btn-primary:active{
+    background-color: #ffa45c !important;
+    border-color: #ffa45c !important;
+}
+.btn-danger:hover{
     color: #ec2f0e;
 }
-
+.btn-success:hover{
+    color: #28a745;
+}
 /* width */
 ::-webkit-scrollbar {
     width: 0.5rem;

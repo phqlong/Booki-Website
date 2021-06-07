@@ -60,12 +60,10 @@ $('#update-btn').click(function(){
         $.ajax({
             type: "POST",
             url: "admin-edit-product.php",
-            
             cache: false,
             processData: false,
             contentType: false,
-            data: formdata,
-            
+            data: formdata,          
             success: function (response) {
 
                 if(response == 1){
@@ -83,7 +81,8 @@ $('#update-btn').click(function(){
 });
 $('#cancel-btn').click(function(){
     if(!changed || confirm('Có thay đổi chưa được lưu, bạn có chắc muốn hủy chỉnh sửa không?')){
-        $('#admin-edit-book').css('display', 'none');
+        $('#admin-edit-book').trigger('reset');
+        $('#admin-edit-book').fadeOut(200);
     }
     
 });
