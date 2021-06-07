@@ -50,13 +50,14 @@
                 }
                 ?>
 
-                <li class="list-group-item d-flex justify-content-between bg-light">
+                <!-- <li class="list-group-item d-flex justify-content-between bg-light">
                     <div class="text-success">
-                        <h6 class="my-0">Promo code</h6>
+                        <h6 class="my-0">Mã giảm giá</h6>
                         <small>EXAMPLECODE</small>
                     </div>
                     <span class="text-success">-$5</span>
-                </li>
+                </li> -->
+
                 <li class="list-group-item d-flex justify-content-between">
                     <span>Tổng cộng (VNĐ)</span>
                     <strong><?php echo number_format($total); ?> đ</strong>
@@ -75,37 +76,40 @@
 
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Thông tin giao hàng</h4>
-            <form class="needs-validation" novalidate>
+
+            <form class="needs-validation" method="post" id="checkout-form" name="checkout-form" novalidate>
                 
+                <input type="hidden" name="totalPrice" id="totalPrice" value="<?php echo $total ?>" />
+
                 <div class="mb-3">
-                    <label for="fullName">Họ và tên (*)</label>
-                    <input type="text" class="form-control" id="fullName" placeholder="Bắt buộc" value="" required>
+                    <label for="fullName">Họ và tên</label>
+                    <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Bắt buộc" value="" required>
                     <div class="invalid-feedback">Vui lòng nhập họ tên </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="phone">Số điện thoại</label>
-                        <input type="tel" class="form-control" id="phone" placeholder="">
+                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Bắt buộc" required>
                         <div class="invalid-feedback">Vui lòng nhập đúng số điện thoại</div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="Tùy chọn">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Tùy chọn">
                         <div class="invalid-feedback">Vui lòng nhập đúng địa chỉ email</div>
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="address">Địa chỉ</label>
-                    <input type="text" class="form-control" id="address" placeholder="Địa chỉ" required>
+                    <input type="text" class="form-control" id="address" name="address" placeholder="Bắt buộc" required>
                     <div class="invalid-feedback">Địa chỉ không được trống</div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="province">Tỉnh / thành</label>
-                        <select class="custom-select d-block w-100" id="province" required>
+                        <select class="custom-select d-block w-100" id="province" name="province" required>
                             <option value="">Chọn ...</option>
                             <option>United States</option>
                         </select>
@@ -113,7 +117,7 @@
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="district">Quận / huyện</label>
-                        <select class="custom-select d-block w-100" id="district" required>
+                        <select class="custom-select d-block w-100" id="district" name="district" required>
                             <option value="">Chọn...</option>
                             <option>California</option>
                         </select>
@@ -121,7 +125,7 @@
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="ward">Phường / xã</label>
-                        <select class="custom-select d-block w-100" id="ward" required>
+                        <select class="custom-select d-block w-100" id="ward" name="ward" required>
                             <option value="">Chọn...</option>
                             <option>Cam county</option>
                         </select>
@@ -138,15 +142,15 @@
 
                         <div class="d-block my-3">
                             <div class="custom-control custom-radio">
-                                <input id="cod" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+                                <input id="cod" name="paymentMethod" type="radio" class="custom-control-input" value="cod" checked required>
                                 <label class="custom-control-label" for="cod">Thanh toán trực tiếp khi nhận hàng (COD)</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input id="transfer" name="paymentMethod" type="radio" class="custom-control-input" required>
+                                <input id="transfer" name="paymentMethod" type="radio" class="custom-control-input" value="transfer" required>
                                 <label class="custom-control-label" for="transfer">Chuyển khoản</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input id="momo" name="paymentMethod" type="radio" class="custom-control-input" required>
+                                <input id="momo" name="paymentMethod" type="radio" class="custom-control-input" value="momo" required>
                                 <label class="custom-control-label" for="momo">Momo</label>
                             </div>
                         </div>
@@ -157,12 +161,12 @@
 
                         <div class="d-block my-3">
                             <div class="custom-control custom-radio">
-                                <input id="standard" name="shippingMethod" type="radio" class="custom-control-input" checked required>
+                                <input id="standard" name="shippingMethod" type="radio" class="custom-control-input" value="standard" checked required>
                                 <label class="custom-control-label" for="standard">Giao hàng tiêu chuẩn: 25,000đ</label>
                             </div>
 
                             <div class="custom-control custom-radio">
-                                <input id="fast" name="shippingMethod" type="radio" class="custom-control-input" required>
+                                <input id="fast" name="shippingMethod" type="radio" class="custom-control-input" value="fast" required>
                                 <label class="custom-control-label" for="fast">Giao hàng nhanh: 50,000đ</label>
                             </div>
                         </div>
@@ -178,33 +182,13 @@
 
                 <hr class="mb-4">
 
-                <button class="btn btn-primary btn-lg btn-block" id="checkout-btn" type="submit">Đặt hàng</button>
+                <div class="text-center">
+                    <button class="btn btn-success btn-lg " id="checkout-btn" name="checkout-btn" type="submit">Đặt hàng</button>
+                    <button type="button" class="btn btn-secondary" name="cancel-btn" id="cancel-btn">Quay lại</button>
+                </div>
             </form>
         </div>
     </div>
 
 
 </div>
-
-<script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function() {
-        'use strict';
-
-        window.addEventListener('load', function() {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
-
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
-    })();
-</script>

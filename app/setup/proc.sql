@@ -548,11 +548,14 @@ ORDER
 */
 DELIMITER $$
 CREATE OR REPLACE PROCEDURE `CREATE_ORDER`(
-    IN _uid INT,
+    IN `usn` VARCHAR(15) COLLATE utf8mb4_unicode_ci,
     IN _checkoutTime TEXT COLLATE utf8mb4_unicode_ci
 )
 BEGIN 
     DECLARE maxid INT;
+    DECLARE _uid INT;
+    SET _uid = (SELECT uid FROM `user` WHERE username = usn);
+
     SET maxid = (SELECT COUNT(oid)
                 FROM `order`);
 
@@ -562,6 +565,7 @@ BEGIN
     SELECT maxid as oid;
 END $$
 DELIMITER ;
+
 
 /*
 	PROCEDURE: ADD_ORDER_ITEM
