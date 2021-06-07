@@ -32,7 +32,7 @@
 
         <div class="admin-order-result" id="admin-order-result">
             <table class="table table-striped">
-                <thead id="admin-order-result-head" class="thead-dark ">
+                <thead id="admin-order-result-head" class="thead-dark hidden">
                     <tr>
                         <th scope="col">Mã đơn hàng</th>
                         <th scope="col">Số tài khoản</th>
@@ -42,7 +42,7 @@
                         <th scope="col">Tình trạng</th>
                     </tr>
                 </thead>
-                <tbody id="admin-order-result-body" class="">
+                <tbody id="admin-order-result-body" class="hidden">
 
                 </tbody>
                 <p id="admin-order-no-record" class="text-body hidden text-center">Không tìm thấy đơn hàng.</p>

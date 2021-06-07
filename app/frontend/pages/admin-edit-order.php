@@ -9,17 +9,21 @@
             <span>Mã đơn hàng: </span>
             <span id="oid" class="font-weight-bold text-success">0001</span>
         </div>
+        <div class="text-center text-body">
+            <span>Trạng thái: </span>
+            <span id="status" class="font-weight-bold text-success">0001</span>
+        </div>
         
         <div class="form-group">
-            <label for="status">Thay đổi trạng thái đơn hàng</label>
-            <select name="status" id="status" class="form-control">
-                <option value="Đã đặt"></option>
-                <option value="Đang giao"></option>
-                <option value="Thành công"></option>
+            <label class="text-body" for="status-select">Thay đổi trạng thái đơn hàng</label>
+            <select name="status-select" id="status-select" class="form-control">
+                <option value="Đang giao">Đang giao</option>
+                <option value="Thành công">Hoàn tất giao hàng</option>
+                <option value="Đã hủy">Hủy đơn hàng</option>
             </select>
         </div>
-        <table class="table table-striped">
-            <thead id="admin-order-detail-head" class="thead-dark hidden">
+        <table class="table table-hover table-striped">
+            <thead id="admin-order-detail-head" class="thead-dark">
                 <tr>
                     <th scope="col">Mã sách</th>
                     <th scope="col">Tên sách</th>
@@ -28,7 +32,7 @@
                     <th scope="col">Thành tiền</th>
                 </tr>
             </thead>
-            <tbody id="admin-order-detail-body" class="hidden">
+            <tbody id="admin-order-detail-body">
 
             </tbody>
         </table>
