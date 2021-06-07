@@ -15,12 +15,12 @@
         mysqli_multi_query($conn, $query);
 
         $result = mysqli_store_result($conn);
-        while($row = mysqli_fetch_assoc($result)){
+        while($row = mysqli_fetch_row($result)){
             $username = $row['username'];
             $role = $row['role'];
-            $uid = $row['uid'];
-            
+            $uid = $row['uid'];    
         }
+        echo $username;
         mysqli_free_result($result);
 
         if($uid == '-1'){
@@ -40,7 +40,7 @@
                 while (mysqli_next_result($conn)) {
                     if($result = mysqli_store_result($conn)){
                         if (mysqli_num_rows($result) > 0) {
-                            while($row = mysqli_fetch_assoc($result)){
+                            while($row = mysqli_fetch_row($result)){
                                 $item_array = array(
 
                                     'item_id'       =>  $row["bid"],
