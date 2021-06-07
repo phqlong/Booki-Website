@@ -6,6 +6,7 @@
     if(isset($_POST['login'])){    
         $username = $_POST['username'];
         $password = $_POST['password'];
+        $uid = '-99';
         $role = $_POST['role'];
 
         $query = "CALL VALIDATE_LOGIN(\"$username\", \"$password\", \"$role\");";
@@ -17,14 +18,18 @@
         while($row = mysqli_fetch_assoc($result)){
             $username = $row['username'];
             $role = $row['role'];
+            $uid = $row['uid'];
             
         }
         mysqli_free_result($result);
 
-        if($username == '-1'){
+        if($uid == '-1'){
             $warning = "Sai tên đăng nhập hoặc mật khẩu";
         }
-        else{
+        else if($uid== '-2'){
+            $warning = "Tài khoản đã bị vô hiệu hóa";
+        }
+        else if($uid != '-99'){
             $_SESSION['username'] = $username;
             $_SESSION['role'] = $role;
 

@@ -2,13 +2,16 @@
 @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,300;1,400;1,700&display=swap');
+@import "custom/authen-form.css";
 @import "custom/admin-product.css";
 @import "custom/admin-edit-product.css";
 @import "custom/admin-edit-user.css";
+@import "custom/admin-order.css";
 @import "custom/ProductStyle.css";
 @import "custom/product-detail.css";
 @import "custom/cart.css";
 @import "custom/checkout.css";
+@import "custom/home.css";
 
 body {
     background-color: #f9e1e0 !important;
@@ -71,6 +74,64 @@ h1, h2, h3, h4, h5, h6 {
 .btn-success:hover{
     color: #28a745;
 }
+
+/*  
+ * Nav bar
+ */
+
+
+/* 
+.dropdown-menu{
+    background-color: #ec2f0e !important;
+    margin-top: 0;
+}  */
+.btn-cart{
+    font-size: 3rem;
+    color: black;
+    position: fixed;
+    bottom: 50%;
+    right: 3rem;
+    cursor: pointer;
+    z-index: 5;
+    border: solid;
+    border-radius: 50%;
+    padding: 0.5rem;
+}
+
+
+.dropdown-menu-default{
+    background-color: #ec2f0e !important;
+    margin-top: 0;
+}
+.dropdown-menu-scroll{
+    background-color: white !important;
+    margin-top: 0;
+}
+
+.dropdown-item{
+    font-size: 1.25rem !important;
+    /* color: black !important; */
+}
+.nav-decorate{
+    border-color: white;
+}
+a.nav-link:hover{
+    border-bottom: solid;
+    border-width: 50%;
+}
+a.dropdown-item:hover{
+    border-bottom: none;
+    border-left: solid ;
+}
+.nav-select{
+    border-bottom: solid ;
+    border-width: 50%;
+    font-weight: 800 !important;
+}
+.nav-select-dropdown{
+    border-left: solid ;
+    font-weight: 800 !important;
+}
 /* width */
 ::-webkit-scrollbar {
     width: 0.5rem;
@@ -101,4 +162,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .deactive{
     color: #ec2f0e;
+}
+.hidden{
+    display: none;
 }

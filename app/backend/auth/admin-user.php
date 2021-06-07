@@ -23,32 +23,38 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                         <span class="left">Username</span>
-                        <span class="right bold"><?php echo $row['username']?></span>
+                        <span class="right bold username"><?php echo $row['username']?></span>
                     </li>
-
                     <li class="list-group-item">
                         <span class="left">Số điện thoại</span>
                         <span class="right bold"><?php echo $row['phone']?></span>
                     </li>
-
                     <li class="list-group-item">
                         <span class="left">Email</span>
                         <span class="right bold"><?php echo $row['email']?></span>
                     </li>
-
                     <li class="list-group-item">
                         <span class="left">Loại người dùng</span>
-                        <span class="right bold"><?php echo $row['role']?></span>
+                        <?php if($row["username"] != "booki"): ?>
+                            <span class="right bold role"><?php echo $row['role']?></span>
+                        <?php else: ?>
+                            <span class="right bold role">root</span>
+                        <?php endif; ?>
+                            
                     </li>
-
                     <li class="list-group-item">
                         <span class="left">Tình trạng</span>
                         <span class="right bold active-status"><?php echo $active?></span>
                     </li>
                 </ul>
-
                 <div class="card-footer">
-                  <button type="button" class="btn btn-primary btn-edit" value="<?php echo $row["username"];?>">Chỉnh sửa</button>
+                    <?php if($row["username"] == $_SESSION['username']): ?>
+                        <div class="btn btn-primary disabled">Người dùng hiện tại</div>
+                    <?php elseif($row["username"] == "booki"): ?>
+                        <div class="btn btn-primary disabled">Không được phép</div>  
+                    <?php else: ?>
+                        <button type="button" class="btn btn-primary btn-edit" value="<?php echo $row["username"];?>">Chỉnh sửa</button>
+                    <?php endif; ?>
                 </div>
             </div>     
 

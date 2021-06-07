@@ -1,13 +1,14 @@
 <?php 
     require_once 'start.php';
-    if(isLoggedIn() && getRole() == 'customer'){
+    if(isLoggedIn() && getRole() == 'admin'){
         require_once FRONTEND_INCLUDE . 'header.php';
         require_once FRONTEND_INCLUDE . 'navbar.php';
-        require_once BACKEND_AUTH . 'checkout.php';
-        require_once FRONTEND_PAGE . 'checkout.php';
+        require_once FRONTEND_PAGE . 'admin-order.php';
         require_once FRONTEND_INCLUDE . 'footer.php';
 ?>
-    <script src="js/custom/checkout.js"></script>
+    
+    <script src="js/custom/admin-order.js"></script>
+    
 <?php
         require_once FRONTEND_INCLUDE . 'closehtml.php';
     }
@@ -15,3 +16,4 @@
         header('Location: index.php');
     }
 ?>
+<?php require_once 'app/backend/core/clear.php'; ?>

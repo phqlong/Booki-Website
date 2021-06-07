@@ -60,12 +60,10 @@ $('#update-btn').click(function(){
         $.ajax({
             type: "POST",
             url: "admin-edit-product.php",
-            
             cache: false,
             processData: false,
             contentType: false,
-            data: formdata,
-            
+            data: formdata,          
             success: function (response) {
 
                 if(response == 1){

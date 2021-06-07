@@ -41,8 +41,11 @@
             </tbody>
         </table>
         <div class="text-center">
-            <a href="checkout.php" class="btn btn-success" > Đặt hàng </a>
-            <a href="product.php"  class="btn btn-info" > Tiếp tục mua hàng </a>
+            <a href="checkout.php" class="btn btn-primary py-3 px-4 btn-lg
+                <?php if (count($_SESSION['cart']) == 0) echo "disabled"; ?>"> 
+                Thanh toán 
+            </a>
+            <a href="product.php"  class="btn btn-secondary" > Tiếp tục mua hàng </a>
         </div>
     </div>
 </div>

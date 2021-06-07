@@ -9,3 +9,6 @@
 .cart .container .table td {
     padding:0px;
 }
+.cart{
+    min-height: 30rem;
+}
