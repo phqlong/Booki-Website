@@ -44,7 +44,7 @@
                             <p>Tác giả: <b>' . $row['author'] . '</b> <br>
                             Nhà cung cấp: <b>' . $row['publisher'] . '</b> </p>
                             <p class="price">' . $row['price'] . ' đ</p>
-                            <p>Số lượng: <input type="number" name="quantity" class="form-control" value="1" min="1"></p>
+                            <b>Số lượng:</b>  <input type="number" name="quantity" class="" value="1" min="1" max="10" style="width: 10em">
                             <input type="hidden" name="hidden_name" value="' . $row['name'] . '">
                             <input type="hidden" name="hidden_price" value="' . $row['price'] . '">
                             <input type="hidden" name="hidden_image" value="' . $row['image'] . '">';
@@ -61,13 +61,12 @@
             </form>
         </div>
 
-
         <div class="customer-cmt">
             <h2>Đánh giá- nhận xét từ khách hàng</h2>
             <div class="add-cmt">
 
                 <form method="post" action="product-detail.php?id=<?php echo $_GET["id"]; ?>">
-                    <b><?php echo getUsername(); ?></b><br>
+                    <b><?php if (isset($_SESSION['username'])){ echo $_SESSION['username'];} ?></b><br>
                     <div class="radio">
                         <label><input type="radio" value="5" name="rate" checked><span class="five_star">
                                 <a href="#"><i class="fas fa-star"></i></a>
