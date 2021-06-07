@@ -8,7 +8,7 @@ function changeQuatity(id,quantity) {
         },
         
         success: function(data, status) {
-            window.location="cart.php";
+            $( ".cart" ).load(window.location.href + " .cart" );
         }
     });
 

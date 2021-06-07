@@ -11,8 +11,8 @@
             foreach($_SESSION["cart"] as $keys => $values)
             {
                 $bid = $values["item_id"];
-                $bquantity = $values["item_quantity"];
-                $query = "CALL ADD_TO_CART(\"$username\", \"$bid\",  \"$bquantity\")";
+                $bamount = $values["item_quantity"];
+                $query = "CALL ADD_TO_CART(\"$username\", \"$bid\",  \"$bamount\")";
 
                 mysqli_query($conn, $query);
             }

@@ -422,7 +422,7 @@ CARTS
 	PROCEDURE: SHOW_CART_ITEMS
     Description: Show user's cart using user id
     Param
-        - _uid: user id
+        - _usn: username
     Return: table(book.name, amount, unit_price, total_price)
 */
 DELIMITER $$
@@ -548,11 +548,14 @@ ORDER
 */
 DELIMITER $$
 CREATE OR REPLACE PROCEDURE `CREATE_ORDER`(
-    IN _uid INT,
+    IN `usn` VARCHAR(15) COLLATE utf8mb4_unicode_ci,
     IN _checkoutTime TEXT COLLATE utf8mb4_unicode_ci
 )
 BEGIN 
     DECLARE maxid INT;
+    DECLARE _uid INT;
+    SET _uid = (SELECT uid FROM `user` WHERE username = usn);
+
     SET maxid = (SELECT COUNT(oid)
                 FROM `order`);
 
@@ -562,6 +565,7 @@ BEGIN
     SELECT maxid as oid;
 END $$
 DELIMITER ;
+
 
 /*
 	PROCEDURE: ADD_ORDER_ITEM
@@ -590,25 +594,48 @@ DELIMITER ;
 	PROCEDURE: GET_ALL_ORDERS
     Description: Get all order with STATUS that the user has been checked out
     Param:
-        - uid: user ID
-        - status: in ['all', 'Đã đặt', 'Đang giao', 'Thành công', 'Đã hủy']
-            + 'all': List all orders without filtering
+        - _username: username (Empty (''): all users)
+        - status: in ['', 'Đã đặt', 'Đang giao', 'Thành công', 'Đã hủy']
+            + '': List all orders without filtering
     Return: Table(oid, uid, checkoutTime, status)
 */
 DELIMITER $$
 CREATE OR REPLACE PROCEDURE `GET_ALL_ORDERS`(
-    IN _uid INT,
+    IN _username VARCHAR(15) COLLATE utf8mb4_unicode_ci,
     IN _status VARCHAR(11) COLLATE utf8mb4_unicode_ci
 )
 BEGIN
-    IF(_status = 'all') THEN
-        SELECT oid, uid, checkoutTime, status 
-        FROM `order`
-        WHERE uid = _uid;
+    DECLARE _uid INT;
+    SET _uid = (SELECT uid FROM `user` where username = _username);
+
+    IF(_username = '') THEN
+        IF(_status = '') THEN
+            SELECT oid, order.uid, username, name, checkoutTime, status
+            FROM `order`, `user`
+            WHERE order.uid = user.uid;
+        ELSE
+            SELECT oid, order.uid, username, name, checkoutTime, status 
+            FROM `order`, `user`
+            WHERE 
+                status = _status
+                AND order.uid = user.uid;
+
+        END IF;
     ELSE
-        SELECT oid, uid, checkoutTime, status 
-        FROM `order`
-        WHERE uid = _uid AND status = _status;
+        IF(_status = '') THEN
+            SELECT oid, order.uid, username, name, checkoutTime, status 
+            FROM `order`, `user`
+            WHERE 
+                order.uid = _uid
+                AND order.uid = user.uid;
+        ELSE
+            SELECT oid, order.uid, username, name, checkoutTime, status 
+            FROM `order`, `user`
+            WHERE 
+                order.uid = _uid 
+                AND order.uid = user.uid
+                AND status = _status;
+        END IF;
     END IF;
 END $$
 DELIMITER ;
