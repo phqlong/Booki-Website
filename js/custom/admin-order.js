@@ -14,21 +14,37 @@ $('#admin-order-search-btn').click(()=>{
 var obConf = {childList: true};
 
 var order_observer = new MutationObserver(()=>{
-    $('button.edit-status-btn').click(()=>{ 
-        console.log($(this)[0])
-        var username = $(this).parents("td").siblings(".username").html();
+    $('.edit-status-btn').click(function () { 
+        var username = $(this).parents().siblings(".username").html();
         var name = $(this).parent().siblings(".name").html();
         var oid = $(this).parent().siblings(".oid").html();
-        console.log(username);
-        console.log(oid);
-        console.log(name);
-        $('#username').html(1);
+        var status = $(this).siblings("span").html();
+
+        $('#username').html(username);
         $('#name').html(name);
-        $('oid').html(oid);
+        $('#oid').html(oid);
+        $('#status').html(status);
         $('#admin-edit-order').css('display', 'flex');
+   
+        
+        $.ajax({
+            type: "get",
+            url: "admin-edit-order.php",
+            data: {
+                rq: 'order_details',
+                oid: oid
+            },
+            dataType: "html",
+            success: function (response) {  
+                console.log(response)
+                $('#admin-order-detail-body').html(response);
+            }
+        });
+        
     });
 });
-order_observer.observe($('#admin-order-result-body')[0], obConf)
+
+order_observer.observe($('#admin-order-result-body')[0], obConf);
 
 
 var fetch_order = () => {
@@ -43,7 +59,9 @@ var fetch_order = () => {
             status: status
         },
         dataType: "html",
-        success: function (response) {
+        success: function (response) {       
+            console.log(response.length);
+            console.log(response)
             if(response){
                 $('#admin-order-no-record').fadeOut(0);
                 $('#admin-order-result-body').html(response);
@@ -53,11 +71,11 @@ var fetch_order = () => {
 
             }
             else{
+                console.log('empty');
                 $('#admin-order-result-head').fadeOut(100); 
                 $('#admin-order-result-body').fadeOut(100);
                 $('#admin-order-no-record').fadeIn(0);         
             }
-            
             
         }
     });
