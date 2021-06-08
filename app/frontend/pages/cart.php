@@ -1,7 +1,7 @@
 <div class="cart">
     <div class="container">
         
-        <h2 class="text-center">Giỏ hàng</h2>
+        <h2 class="text-center mt-4">Giỏ hàng</h2>
         <table class="table table-hover ">
             <thead class="thead-dark">
                 <tr>
