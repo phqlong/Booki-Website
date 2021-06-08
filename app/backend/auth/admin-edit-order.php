@@ -7,7 +7,7 @@
             $status = $_GET["status"];
             $query = "CALL GET_ALL_ORDERS(\"$username\", \"$status\")";
             $result = mysqli_query($conn, $query);
-            while($row = mysqli_fetch_assoc($result)):?>
+            while($row = mysqli_fetch_assoc($result)){?>
                 <tr>
                     <td class="text-body oid"><?php echo $row["oid"];?></td>
                     <td class="text-body uid"><?php echo $row["uid"];?></td>
@@ -22,14 +22,14 @@
                     </td>     
                 </tr>
 <?php
-            endwhile;
+            }
         }
         else if($_GET["rq"] == "order_details"){
             $oid = $_GET["oid"];
             $query = "CALL GET_ORDER_ITEMS(\"$oid\")";
             $result = mysqli_query($conn, $query);
             $total = 0;
-            while($row = mysqli_fetch_assoc($result)):?>
+            while($row = mysqli_fetch_assoc($result)){?>
                 <tr>
                     <td class="text-body"><?php echo $row["bid"];?></td>
                     <td class="text-body"><?php echo $row["name"];?></td>
@@ -39,12 +39,20 @@
                 </tr>
 <?php
                 $total += $row["price"]*$row["amount"];
-            endwhile;?>
-                <tr>
-                    <td colspan="4" class="text-body table-danger">Tổng cộng: </td>
-                    <td class="text-body table-danger"><?php echo $total?></td>
-                </tr>
+            }
+?>
+            <tr>
+                <td colspan="4" class="text-body table-danger bold">Tổng cộng: </td>
+                <td class="text-body table-danger bold"><?php echo $total?></td>
+            </tr>
 <?php
         }
+    }
+
+    else if ($_SERVER["REQUEST_METHOD"] == "POST"){
+        $oid = $_POST["oid"];
+        $status = $_POST["status"];
+        $query = "CALL CHANGE_ORDER_STATUS($oid, \"$status\")";
+        echo mysqli_query($conn, $query);
     }
 ?>
