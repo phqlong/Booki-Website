@@ -1,6 +1,6 @@
 <div class="container">
     <div class="py-5 text-center">
-        <h1>Booki Shop</h1>
+        <h1>Tiến hành đặt hàng</h1>
     </div>
 
     <nav aria-label="breadcrumb">

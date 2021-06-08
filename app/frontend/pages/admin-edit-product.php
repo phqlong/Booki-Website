@@ -37,7 +37,7 @@
         </div>
         <div class="btn-list">
             <button type="button" class="btn btn-success" name="updated" id="update-btn">Cập nhật</button>
-            <button type="button" class="btn btn-danger" name="updated" id="cancel-btn">Hủy bỏ</button>
+            <button type="button" class="btn btn-secondary" name="updated" id="cancel-btn">Hủy bỏ</button>
         </div>
         
 

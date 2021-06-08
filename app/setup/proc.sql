@@ -124,7 +124,6 @@ BEGIN
     	SET id = -1;
         SET usn = '-1';
         SET _role = '-1';
-        
     END IF;
     SELECT id as uid, usn as username, _role as role;       
 END$$
