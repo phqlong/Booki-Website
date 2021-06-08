@@ -1,14 +1,20 @@
-.cart .container .table .detail-cart{
+.cart .container .table .detail-cart {
     color: black;
 }
-.cart .container .table .detail-cart img{
+
+.cart .container .table .detail-cart img {
     height: 140px;
     padding: 10px;
 }
 
 .cart .container .table td {
-    padding:0px;
+    padding: 0px;
 }
-.cart{
+
+.cart {
     min-height: 30rem;
+}
+
+.cart a {
+    color: black;
 }

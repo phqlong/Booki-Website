@@ -17,12 +17,12 @@
 
 body {
     /* background-color: #f9e1e0 !important; */
-    background-color: #FFF3D9 !important;
+    background-color: #fffaee !important;
     font-size: 18px;
 }
 
 .header-bar {
-    background-color: #ec2f0e !important;
+    background: -webkit-linear-gradient(right, #108dc7 0%,rgb(231, 38, 38) 50%,#ef8e38 100%) !important;
 }
 
 .header-bar a {
@@ -38,10 +38,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .footer-area {
-    background-color: #ec2f0e !important;
+    /* background-color: #ec2f0e !important; */
+    background: -webkit-linear-gradient(right, #108dc7 0%,rgb(231, 38, 38) 50%,#ef8e38 100%) !important;
+
 }
 
 .footer-area p {
+    color: white;
+}
+
+thead th {
+    background-color:  #FF851B   !important;
     color: white;
 }
 
