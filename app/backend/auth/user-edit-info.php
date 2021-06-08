@@ -29,17 +29,14 @@ if (isset($_POST["user-edit-info-button"])) {
                     $validator[]= $row[0];
                 }
             }
-           
+            mysqli_free_result($result);
         }
-        mysqli_free_result($result);
+        
     } 
     while(mysqli_next_result($conn));
     if (count($validator) == 3) {
-        if ($validator[0] == '1' && $validator[1] == '1' && $validator[2] != -1){
-            $query = "CALL UPDATE_INFO(\"$usn\", \"$newPassword\", \"$name\", \"$phone\", \"$email\")";
-            mysqli_query($conn, $query);
-            header('Location: user-info.php');
-            $warning = "Cập nhật thành công";
+        if ($validator[2] == '-1'){
+            $warning = "Sai mật khẩu";
         }
         elseif($validator[0] == '0'){
             $warning = "Email đã được sử dụng";
@@ -47,8 +44,10 @@ if (isset($_POST["user-edit-info-button"])) {
         elseif($validator[1] == '0'){
             $warning = "Số điện thoại đã được sử dụng";
         }
-        else if($validator[2] == -1){
-            $warning = "Sai mật khẩu";
+        else{
+            $query = "CALL UPDATE_INFO(\"$usn\", \"$newPassword\", \"$name\", \"$phone\", \"$email\")";
+            mysqli_query($conn, $query);
+            header('Location: user-info.php');
         }
     }
 
