@@ -1,6 +1,6 @@
 <div class="container">
     <div class="py-5 text-center">
-        <h1>Booki Shop</h1>
+        <h1>Tiến hành đặt hàng</h1>
     </div>
 
     <nav aria-label="breadcrumb">
@@ -72,6 +72,7 @@
                     </div>
                 </div>
             </form>
+
         </div>
 
         <div class="col-md-8 order-md-1">
@@ -183,8 +184,8 @@
                 <hr class="mb-4">
 
                 <div class="text-center">
-                    <button class="btn btn-success btn-lg " id="checkout-btn" name="checkout-btn" type="submit">Đặt hàng</button>
-                    <button type="button" class="btn btn-secondary" name="cancel-btn" id="cancel-btn">Quay lại</button>
+                    <button type="submit" class="btn btn-success btn-lg " id="checkout-btn" name="checkout-btn" >Đặt hàng</button>
+                    <button type="button" class="btn btn-secondary" id="cancel-btn" name="cancel-btn">Quay lại</button>
                 </div>
             </form>
         </div>

@@ -19,9 +19,10 @@
     }, false);
 })();
 
-$('#cancel-btn').click(function(){
-    if(confirm('Bạn có chắc hủy thanh toán không?')){
-        window.location="cart.php";
-    }
-    
+$(document).ready(function() {
+    $('#cancel-btn').click(function(){
+        if(confirm('Bạn có chắc hủy thanh toán không?')){
+            window.location="cart.php";
+        }
+    });
 });

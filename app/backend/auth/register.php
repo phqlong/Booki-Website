@@ -3,6 +3,7 @@
 ?>
 
 <?php
+    $warning = "";
     if (isset($_POST['register-button'])){
         $username=$_POST['username'];
         $password=$_POST['password'];
@@ -16,7 +17,7 @@
         $validate_email = "";
         $validate_phone = "";
 
-        // Check mail:  If validate_mail == '1' =>  Valid email
+        // Check email:  If validate_mail == '1' =>  Valid email
         $result = mysqli_store_result($conn);
 
         if(mysqli_num_rows($result) > 0){
@@ -39,25 +40,25 @@
             }
         }
 
-        // Create user
-        if($validate_email == '1' && $validate_phone == '1'){
+        // Create user if email, phone and user are valid
+        if ($validate_email == '0' && $validate_phone == '1'){
+            $warning = "Email này đã được sử dụng!";
+        }
+        elseif ($validate_email == '1' && $validate_phone == '0'){
+            $warning = "Số điện thoại này đã được sử dụng!";
+        }
+        elseif ($validate_email == '0' && $validate_phone == '0'){
+            $warning = "Email và Số điện thoại này đã được sử dụng!";
+        }
+        else {
             $query = "CALL CREATE_USER('$username', '$password', '$name', '$phone', '$email')";
             $result = mysqli_query($conn, $query);
             if(!$result){
-                echo ("Tên đăng nhập đã tồn tại, vui lòng sử dụng tên khác");
+                $warning = "Tên đăng nhập đã tồn tại, vui lòng sử dụng tên khác!";
             }
             else{
                 header('Location: login.php');
             }
-        }
-        elseif($validate_email == '0' && $validate_phone == '1'){
-            echo ("Email này đã được sử dụng");
-        }
-        elseif($validate_email == '1' && $validate_phone == '0'){
-            echo ("Số điện thoại này đã được sử dụng");
-        }
-        else{
-            echo ("Email và Số điện thoại này đã được sử dụng");
         }
     }
 ?>

@@ -7,14 +7,17 @@
 @import "custom/admin-edit-product.css";
 @import "custom/admin-edit-user.css";
 @import "custom/admin-order.css";
+@import "custom/order.css";
 @import "custom/ProductStyle.css";
 @import "custom/product-detail.css";
 @import "custom/cart.css";
 @import "custom/checkout.css";
+@import "custom/contact.css";
 @import "custom/home.css";
 
 body {
-    background-color: #f9e1e0 !important;
+    /* background-color: #f9e1e0 !important; */
+    background-color: #FFF3D9 !important;
     font-size: 18px;
 }
 
@@ -71,6 +74,9 @@ h1, h2, h3, h4, h5, h6 {
 .btn-danger:hover{
     color: #ec2f0e;
 }
+.btn-secondary:hover{
+    color: #6c757d;
+}
 .btn-success:hover{
     color: #28a745;
 }
@@ -89,7 +95,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 3rem;
     color: black;
     position: fixed;
-    bottom: 50%;
+    bottom: 30%;
     right: 3rem;
     cursor: pointer;
     z-index: 5;
@@ -98,7 +104,9 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0.5rem;
 }
 
-
+.dropdown-menu{
+    padding: 1rem;
+}
 .dropdown-menu-default{
     background-color: #ec2f0e !important;
     margin-top: 0;
