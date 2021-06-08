@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 08, 2021 at 01:05 PM
+-- Generation Time: Jun 08, 2021 at 05:47 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -20,8 +20,360 @@ SET time_zone = "+00:00";
 --
 -- Database: `booki`
 --
+DROP DATABASE IF EXISTS `booki`;
 CREATE DATABASE IF NOT EXISTS `booki` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE `booki`;
+
+DELIMITER $$
+--
+-- Procedures
+--
+DROP PROCEDURE IF EXISTS `ADD_BOOK`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADD_BOOK` (IN `_name` TEXT, IN `_author` TEXT, IN `_publisher` TEXT, IN `_description` TEXT, IN `_image` TEXT, IN `_amount` INT, IN `_price` INT)  BEGIN 
+	INSERT INTO `book` (name, description, author, publisher, image, amount, price)
+    VALUES(
+        _name,
+        _description,
+        _author,
+        _publisher,
+        _image,
+        _amount,
+        _price
+    );
+END$$
+
+DROP PROCEDURE IF EXISTS `ADD_ORDER_ITEM`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADD_ORDER_ITEM` (IN `_oid` INT, IN `_bid` INT, IN `_amount` INT)  BEGIN 
+    INSERT INTO `order_item`(oid, bid, amount)
+    VALUES (_oid, _bid, _amount);
+
+END$$
+
+DROP PROCEDURE IF EXISTS `ADD_OR_UPDATE_BOOK`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADD_OR_UPDATE_BOOK` (IN `_bid` INT, IN `_name` TEXT COLLATE utf8mb4_unicode_ci, IN `_author` TEXT COLLATE utf8mb4_unicode_ci, IN `_publisher` TEXT COLLATE utf8mb4_unicode_ci, IN `_description` TEXT COLLATE utf8mb4_unicode_ci, IN `_image` TEXT COLLATE utf8mb4_unicode_ci, IN `_amount` INT, IN `_price` INT)  BEGIN 
+    IF(_bid = -1) THEN
+	    INSERT INTO `book` (name, description, author, publisher, image, amount, price)
+        VALUES(
+            _name,
+            _description,
+            _author,
+            _publisher,
+            _image,
+            _amount,
+            _price
+        );
+    ELSE
+        UPDATE `book`
+        SET 
+            name = _name,
+            author = _author,
+            publisher = _publisher,
+            description = _description,
+            image = _image,
+            amount = _amount,
+            price = _price
+
+        WHERE bid = _bid;
+    END IF;
+END$$
+
+DROP PROCEDURE IF EXISTS `ADD_REVIEW`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADD_REVIEW` (IN `_uid` INT, IN `_bid` INT, IN `_rating` INT, IN `_comment` TEXT)  BEGIN
+    INSERT INTO `review` (uid, bid, rating, comment)
+    VALUES (_uid, _bid, _rating, _comment);
+END$$
+
+DROP PROCEDURE IF EXISTS `ADD_TO_CART`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ADD_TO_CART` (IN `usn` VARCHAR(15) COLLATE utf8mb4_unicode_ci, IN `_bid` INT, IN `_amount` INT)  BEGIN 
+    SET @uid = (SELECT uid FROM `user` WHERE username = usn);
+
+    IF EXISTS(
+        SELECT uid 
+        FROM `cart`
+        WHERE uid = @uid AND bid = _bid
+    ) 
+    THEN
+        UPDATE `cart`
+        SET amount = amount + _amount
+        WHERE uid = @uid AND bid = _bid;
+    ELSE 
+        INSERT INTO `cart`(uid, bid, amount)
+        VALUES(@uid, _bid, _amount);
+    END IF;
+
+END$$
+
+DROP PROCEDURE IF EXISTS `CHANGE_ORDER_STATUS`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CHANGE_ORDER_STATUS` (IN `_oid` INT, IN `_status` VARCHAR(11) COLLATE utf8mb4_unicode_ci)  BEGIN
+    UPDATE `order`
+    SET status = _status
+    WHERE oid = _oid;
+END$$
+
+DROP PROCEDURE IF EXISTS `CHANGE_ROLE_STATUS`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CHANGE_ROLE_STATUS` (IN `_uname` VARCHAR(15) COLLATE utf8mb4_unicode_ci, IN `_role` VARCHAR(9) COLLATE utf8mb4_unicode_ci, IN `_active` TINYINT(1))  BEGIN 
+    UPDATE `user` 
+    SET 
+        role = _role,
+        active = _active
+    WHERE username = _uname; 
+END$$
+
+DROP PROCEDURE IF EXISTS `CHECK_EMAIL`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CHECK_EMAIL` (IN `_email` TEXT COLLATE utf8mb4_unicode_ci)  BEGIN
+    DECLARE result BOOLEAN;
+    IF(EXISTS(
+        SELECT uid
+        FROM `user`
+        WHERE email= _email
+    )) THEN
+        SET result = FALSE;
+    ELSE 
+        SET result = TRUE;
+    END IF;
+    SELECT result;
+END$$
+
+DROP PROCEDURE IF EXISTS `CHECK_PHONE`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CHECK_PHONE` (IN `_phone` TEXT COLLATE utf8mb4_unicode_ci)  BEGIN
+    DECLARE result BOOLEAN;
+    IF(EXISTS(
+        SELECT uid
+        FROM `user`
+        WHERE phone =_phone
+    )) THEN
+        SET result = FALSE;
+    ELSE 
+        SET result = TRUE;
+    END IF;
+    SELECT result;
+END$$
+
+DROP PROCEDURE IF EXISTS `CREATE_ORDER`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CREATE_ORDER` (IN `usn` VARCHAR(15) COLLATE utf8mb4_unicode_ci, IN `_checkoutTime` TEXT COLLATE utf8mb4_unicode_ci)  BEGIN 
+    DECLARE maxid INT;
+    DECLARE _uid INT;
+    SET _uid = (SELECT uid FROM `user` WHERE username = usn);
+
+    SET maxid = (SELECT COUNT(oid)
+                FROM `order`);
+
+    INSERT INTO `order`(oid, uid, checkoutTime, status)
+    VALUES (maxid, _uid, _checkoutTime, 'Đã đặt');
+
+    SELECT maxid as oid;
+END$$
+
+DROP PROCEDURE IF EXISTS `CREATE_USER`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CREATE_USER` (IN `uname` VARCHAR(15), IN `psswd` VARCHAR(30), IN `name` VARCHAR(50), IN `phone` VARCHAR(10), IN `email` TEXT)  BEGIN
+    INSERT INTO `user`(username, password, name, phone, email, role)
+    VALUES (uname, PASSWORD(psswd), name, phone, email, 'customer');
+END$$
+
+DROP PROCEDURE IF EXISTS `GET_ALL_BOOKS`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GET_ALL_BOOKS` ()  BEGIN 
+	SELECT bid,name, author, publisher, amount, description, price, image
+    FROM `book`;
+END$$
+
+DROP PROCEDURE IF EXISTS `GET_ALL_ORDERS`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GET_ALL_ORDERS` (IN `_username` VARCHAR(15) COLLATE utf8mb4_unicode_ci, IN `_status` VARCHAR(11) COLLATE utf8mb4_unicode_ci)  BEGIN
+    DECLARE _uid INT;
+    SET _uid = (SELECT uid FROM `user` where username = _username);
+
+    IF(_username = '') THEN
+        IF(_status = '') THEN
+            SELECT oid, order.uid, username, name, checkoutTime, status
+            FROM `order`, `user`
+            WHERE order.uid = user.uid;
+        ELSE
+            SELECT oid, order.uid, username, name, checkoutTime, status 
+            FROM `order`, `user`
+            WHERE 
+                status = _status
+                AND order.uid = user.uid;
+
+        END IF;
+    ELSE
+        IF(_status = '') THEN
+            SELECT oid, order.uid, username, name, checkoutTime, status 
+            FROM `order`, `user`
+            WHERE 
+                order.uid = _uid
+                AND order.uid = user.uid;
+        ELSE
+            SELECT oid, order.uid, username, name, checkoutTime, status 
+            FROM `order`, `user`
+            WHERE 
+                order.uid = _uid 
+                AND order.uid = user.uid
+                AND status = _status;
+        END IF;
+    END IF;
+END$$
+
+DROP PROCEDURE IF EXISTS `GET_ALL_USERS`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GET_ALL_USERS` ()  BEGIN 
+	SELECT name, username, phone, email, role, active
+    FROM `user` ;
+END$$
+
+DROP PROCEDURE IF EXISTS `GET_BOOK`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GET_BOOK` (IN `id` INT)  BEGIN 
+	SELECT bid, name, author, publisher, amount, description, price, image
+    FROM `book` 
+    WHERE bid = id; 
+END$$
+
+DROP PROCEDURE IF EXISTS `GET_BOOK_REVIEWS`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GET_BOOK_REVIEWS` (IN `_bid` INT)  BEGIN 
+	SELECT user.name, rating, comment
+    FROM user, book, review
+    WHERE
+        review.bid = _bid
+        AND book.bid = review.bid
+        AND user.uid = review.uid;
+END$$
+
+DROP PROCEDURE IF EXISTS `GET_ORDER_ITEMS`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GET_ORDER_ITEMS` (IN `_oid` INT)  BEGIN
+    SELECT book.bid, book.name, book.price, order_item.amount, book.price*order_item.amount as total_price, order.status
+    FROM `order_item`, `order`, `book`
+    WHERE
+        order_item.oid = _oid
+        AND order_item.oid = order.oid
+        AND order_item.bid = book.bid ;
+END$$
+
+DROP PROCEDURE IF EXISTS `GET_RATING`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GET_RATING` (IN `_bid` INT)  BEGIN 
+    SELECT FORMAT(AVG(rating), 2) AS rating 
+    FROM user, book, review 
+    WHERE 
+        review.bid = _bid 
+        AND book.bid = review.bid; 
+END$$
+
+DROP PROCEDURE IF EXISTS `GET_USER_BY_ID`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GET_USER_BY_ID` (IN `id` INT)  BEGIN 
+	SELECT name, username, phone, email, role, active
+    FROM `user` 
+    WHERE uid = id; 
+END$$
+
+DROP PROCEDURE IF EXISTS `GET_USER_BY_USN`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GET_USER_BY_USN` (IN `usn` VARCHAR(15) COLLATE utf8mb4_unicode_ci)  BEGIN 
+	SELECT name, username, phone, email, role, active
+    FROM `user` 
+    WHERE username = usn; 
+END$$
+
+DROP PROCEDURE IF EXISTS `REMOVE_ALL_CART_ITEM`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `REMOVE_ALL_CART_ITEM` (IN `usn` VARCHAR(15) COLLATE utf8mb4_unicode_ci)  BEGIN 
+    SET @uid = (SELECT uid FROM `user` WHERE username = usn);
+    DELETE FROM `cart` WHERE uid = @uid;
+END$$
+
+DROP PROCEDURE IF EXISTS `REMOVE_BOOK`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `REMOVE_BOOK` (IN `_bid` INT)  BEGIN 
+	DELETE FROM `book`
+    WHERE bid = _bid;
+END$$
+
+DROP PROCEDURE IF EXISTS `REMOVE_CART_ITEM`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `REMOVE_CART_ITEM` (IN `_uid` INT, IN `_bid` INT)  BEGIN 
+    DELETE FROM `cart`
+    WHERE uid = _uid AND bid = _bid;
+END$$
+
+DROP PROCEDURE IF EXISTS `SHOW_CART_ITEMS`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SHOW_CART_ITEMS` (IN `usn` VARCHAR(15) COLLATE utf8mb4_unicode_ci)  BEGIN 
+    DECLARE _uid INT;
+    SET _uid = (SELECT uid FROM `user` WHERE username = usn);
+
+	SELECT book.bid as bid, book.name as bname, cart.amount as quantity, book.price as bprice, book.image as bimg
+    FROM `book`, `cart`
+    WHERE
+        cart.uid = _uid 
+        AND cart.bid = book.bid;
+END$$
+
+DROP PROCEDURE IF EXISTS `UPDATE_BOOK_INFO`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `UPDATE_BOOK_INFO` (IN `id` INT, IN `_name` TEXT COLLATE utf8mb4_unicode_ci, IN `_author` TEXT COLLATE utf8mb4_unicode_ci, IN `_publisher` TEXT COLLATE utf8mb4_unicode_ci, IN `_description` TEXT COLLATE utf8mb4_unicode_ci, IN `_image` TEXT COLLATE utf8mb4_unicode_ci, IN `_amount` INT, IN `_price` INT)  BEGIN 
+	UPDATE `book`
+    SET 
+        name = _name,
+        author = _author,
+        publisher = _publisher,
+        description = _description,
+        image = _image,
+        amount = _amount,
+        price = _price
+
+    WHERE bid = id;
+END$$
+
+DROP PROCEDURE IF EXISTS `UPDATE_CART_ITEM`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `UPDATE_CART_ITEM` (IN `_uid` INT, IN `_bid` INT, IN `_amount` INT)  BEGIN 
+    UPDATE `cart`
+    SET amount = _amount
+    WHERE uid = _uid AND bid = _bid;
+END$$
+
+DROP PROCEDURE IF EXISTS `UPDATE_INFO`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `UPDATE_INFO` (IN `uname` VARCHAR(15) COLLATE utf8mb4_unicode_ci, IN `psswd` VARCHAR(30), IN `_name` VARCHAR(50) COLLATE utf8mb4_unicode_ci, IN `_phone` VARCHAR(10) COLLATE utf8mb4_unicode_ci, IN `_email` TEXT COLLATE utf8mb4_unicode_ci)  BEGIN
+    IF(psswd = '' OR (psswd IS NULL)) THEN
+        UPDATE `user`
+        SET
+            name = _name,
+            phone = _phone,
+            email = _email
+        WHERE
+    	    username = uname;
+    ELSE
+        UPDATE `user`
+        SET
+    	    password = PASSWORD(psswd),
+            name = _name,
+            phone = _phone,
+            email = _email
+        WHERE
+    	    username = uname;
+    END IF;
+END$$
+
+DROP PROCEDURE IF EXISTS `VALIDATE_LOGIN`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `VALIDATE_LOGIN` (IN `usn` VARCHAR(15) COLLATE utf8mb4_unicode_ci, IN `psswd` VARCHAR(30) COLLATE utf8mb4_unicode_ci, IN `_role` VARCHAR(9) COLLATE utf8mb4_unicode_ci)  BEGIN
+	
+	DECLARE id INT;
+    IF(EXISTS(
+        SELECT uid FROM `user` 
+        WHERE 
+        	username = usn
+        	AND password = PASSWORD(psswd)
+        	AND role = _role
+    )) THEN
+    
+    	IF(EXISTS(
+			SELECT uid FROM `user`
+            WHERE username = usn
+            AND active = 1
+        )) THEN
+    		SET id = (SELECT uid FROM `user` WHERE username=usn);
+        ELSE
+        	SET id = -2;
+            SET usn = '-2';
+            SET _role = '-2';
+        END IF;
+    ELSE
+    	SET id = -1;
+        SET usn = '-1';
+        SET _role = '-1';
+    END IF;
+    SELECT id as uid, usn as username, _role as role;       
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -29,6 +381,7 @@ USE `booki`;
 -- Table structure for table `book`
 --
 
+DROP TABLE IF EXISTS `book`;
 CREATE TABLE `book` (
   `bid` int(11) NOT NULL,
   `name` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -63,6 +416,7 @@ INSERT INTO `book` (`bid`, `name`, `description`, `amount`, `price`, `image`, `a
 -- Table structure for table `cart`
 --
 
+DROP TABLE IF EXISTS `cart`;
 CREATE TABLE `cart` (
   `cid` int(11) NOT NULL,
   `uid` int(11) NOT NULL,
@@ -70,12 +424,20 @@ CREATE TABLE `cart` (
   `amount` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`cid`, `uid`, `bid`, `amount`) VALUES
+(17, 1, 16, 1);
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `order`
 --
 
+DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
   `oid` int(11) NOT NULL,
   `uid` int(11) NOT NULL,
@@ -93,7 +455,10 @@ INSERT INTO `order` (`oid`, `uid`, `checkoutTime`, `status`) VALUES
 (2, 1, '06-06-2021 17:01:00', 'Thành công'),
 (3, 1, '2021-06-08 10:33:10', 'Đã hủy'),
 (4, 8, '2021-06-08 12:28:28', 'Đã đặt'),
-(5, 9, '2021-06-08 12:30:26', 'Đã đặt');
+(5, 9, '2021-06-08 12:30:26', 'Đã đặt'),
+(6, 1, '2021-06-08 15:49:00', 'Đã hủy'),
+(7, 1, '2021-06-08 15:54:41', 'Đã đặt'),
+(8, 8, '2021-06-08 15:55:28', 'Đã đặt');
 
 -- --------------------------------------------------------
 
@@ -101,6 +466,7 @@ INSERT INTO `order` (`oid`, `uid`, `checkoutTime`, `status`) VALUES
 -- Table structure for table `order_item`
 --
 
+DROP TABLE IF EXISTS `order_item`;
 CREATE TABLE `order_item` (
   `oid` int(11) NOT NULL,
   `bid` int(11) NOT NULL,
@@ -124,7 +490,11 @@ INSERT INTO `order_item` (`oid`, `bid`, `amount`) VALUES
 (4, 16, 1),
 (4, 19, 1),
 (5, 1, 1),
-(5, 5, 1);
+(5, 5, 1),
+(6, 20, 1),
+(7, 16, 1),
+(7, 17, 1),
+(8, 11, 1);
 
 -- --------------------------------------------------------
 
@@ -132,6 +502,7 @@ INSERT INTO `order_item` (`oid`, `bid`, `amount`) VALUES
 -- Table structure for table `review`
 --
 
+DROP TABLE IF EXISTS `review`;
 CREATE TABLE `review` (
   `rid` int(11) NOT NULL,
   `uid` int(11) NOT NULL,
@@ -151,7 +522,8 @@ INSERT INTO `review` (`rid`, `uid`, `bid`, `rating`, `comment`) VALUES
 (5, 1, 1, 4, 'Hay:)))'),
 (6, 8, 16, 5, 'Simp!!! <3'),
 (7, 1, 16, 5, 'Hóng You Watanabe. :3'),
-(8, 9, 18, 4, 'Bìa đẹp, nhưng mà shipper không đeo khẩu trang nên trừ 1 điểm thanh lịch. :))))');
+(8, 9, 18, 4, 'Bìa đẹp, nhưng mà shipper không đeo khẩu trang nên trừ 1 điểm thanh lịch. :))))'),
+(9, 1, 21, 5, 'Fan trung thành của Sahara-sensei. <3');
 
 -- --------------------------------------------------------
 
@@ -159,6 +531,7 @@ INSERT INTO `review` (`rid`, `uid`, `bid`, `rating`, `comment`) VALUES
 -- Table structure for table `user`
 --
 
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `uid` int(11) NOT NULL,
   `username` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -175,12 +548,13 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`uid`, `username`, `password`, `name`, `phone`, `email`, `role`, `active`) VALUES
-(1, 'hoanduy', '*3060F61EB5671C11A3605E847AF27763E555374A', 'Duy', '0123456789', 'hoanduy@mail.to', 'customer', 1),
+(1, 'hoanduy', '*3060F61EB5671C11A3605E847AF27763E555374A', 'Nguyễn Trần Hoàn Duy', '0372819728', 'hoanduy27@gmail.com', 'customer', 1),
 (8, 'hieule', '*8C869A400A96A09D7483D88A490701C56D474BF1', 'Hiếu Đẹp Trai', '0969969696', 'hieulengoc@outlook.com', 'customer', 1),
 (9, 'longpham', '*F55C3F419C97BDEEBAD764C2DFF8BE3B4990D9CE', 'Long Pham', '0378823356', 'longpham@gmail.com', 'customer', 1),
 (10, 'dungmeo', '*FFCB7EF476F95690D1FFB871DEA274343CD9C284', 'Dũng Đình Rumble', '0345123456', 'dungdinh@gmail.com', 'customer', 0),
 (11, 'booki', '*962A88555204B46D42F282DCF09A9584CC9203B5', 'Booki', '0324192276', 'booki@gmail.com', 'admin', 1),
-(12, 'cobooki', '*A0CC5E06B104C2FF9CC2FA7E6115BFF928AF2AE8', 'Co-Booki', '0327219029', 'cobooki@gmail.com', 'admin', 1);
+(12, 'cobooki', '*A0CC5E06B104C2FF9CC2FA7E6115BFF928AF2AE8', 'Co-Booki', '0327219029', 'cobooki@gmail.com', 'admin', 1),
+(13, 'duy', '*6F371CBBCCDF3D3EC8A11267817B2D4EFF3D1871', 'duy', '0123457918', 'duy@duy.duy', 'customer', 1);
 
 --
 -- Indexes for dumped tables
@@ -247,19 +621,19 @@ ALTER TABLE `book`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `review`
 --
 ALTER TABLE `review`
-  MODIFY `rid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `rid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables
