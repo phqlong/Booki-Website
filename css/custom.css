@@ -15,7 +15,8 @@
 @import "custom/home.css";
 
 body {
-    background-color: #f9e1e0 !important;
+    /* background-color: #f9e1e0 !important; */
+    background-color: #FFF3D9 !important;
     font-size: 18px;
 }
 
