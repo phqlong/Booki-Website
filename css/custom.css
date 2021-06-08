@@ -98,7 +98,9 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0.5rem;
 }
 
-
+.dropdown-menu{
+    padding: 1rem;
+}
 .dropdown-menu-default{
     background-color: #ec2f0e !important;
     margin-top: 0;

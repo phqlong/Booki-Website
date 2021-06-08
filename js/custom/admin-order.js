@@ -3,12 +3,39 @@ window.onload = () =>{
 
 }
 
-$('#admin-order-search').submit((e)=>{
+$('#admin-order-search').submit(function(e){
     e.preventDefault();
     fetch_order();
 });
-$('#admin-order-search-btn').click(()=>{
+$('#admin-order-search-btn').click(function(){
     fetch_order();
+});
+$('#cancel-btn').click(function(){
+    $('#admin-edit-order').fadeOut(200);
+});
+
+$("#update-btn").click(function (e) { 
+    e.preventDefault();
+    if(confirm("Xác nhận thay đổi?")){
+        $.ajax({
+            type: "post",
+            url: "admin-edit-order.php",
+            data: {
+                oid: $("#oid").html(),
+                status: $("#status-select").val()
+            },
+            success: function (response) {
+                if(response == 1){
+                    alert("Cập nhật thành công.");
+                    location.reload();
+                }
+                else{
+                    alert("Cập nhật thất bại.");
+                }
+            }
+        });
+    }
+    
 });
 
 var obConf = {childList: true};
@@ -24,6 +51,7 @@ var order_observer = new MutationObserver(()=>{
         $('#name').html(name);
         $('#oid').html(oid);
         $('#status').html(status);
+        $('#admin-edit-order').fadeIn(200);
         $('#admin-edit-order').css('display', 'flex');
    
         
@@ -36,7 +64,6 @@ var order_observer = new MutationObserver(()=>{
             },
             dataType: "html",
             success: function (response) {  
-                console.log(response)
                 $('#admin-order-detail-body').html(response);
             }
         });
@@ -60,9 +87,7 @@ var fetch_order = () => {
         },
         dataType: "html",
         success: function (response) {       
-            console.log(response.length);
-            console.log(response)
-            if(response){
+            if(response.trim()){
                 $('#admin-order-no-record').fadeOut(0);
                 $('#admin-order-result-body').html(response);
                  

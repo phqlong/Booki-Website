@@ -22,20 +22,23 @@
                 <option value="Đã hủy">Hủy đơn hàng</option>
             </select>
         </div>
-        <table class="table table-hover table-striped">
-            <thead id="admin-order-detail-head" class="thead-dark">
-                <tr>
-                    <th scope="col">Mã sách</th>
-                    <th scope="col">Tên sách</th>
-                    <th scope="col">Đơn giá</th>
-                    <th scope="col">Số lượng</th>
-                    <th scope="col">Thành tiền</th>
-                </tr>
-            </thead>
-            <tbody id="admin-order-detail-body">
-
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped">
+                <thead id="admin-order-detail-head" class="thead-dark">
+                    <tr>
+                        <th scope="col">Mã sách</th>
+                        <th scope="col">Tên sách</th>
+                        <th scope="col">Đơn giá</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-order-detail-body">
+    
+                </tbody>
+            </table>
+        </div>
+        
         <div class="btn-list">
             <button type="button" class="btn btn-success" name="updated" id="update-btn">Cập nhật</button>
             <button type="button" class="btn btn-danger" name="updated" id="cancel-btn">Hủy bỏ</button>
