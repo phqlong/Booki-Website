@@ -2,20 +2,33 @@
     <p class="text-danger"><?php echo $warning; ?> </p>
     <h3 class="text-center">Đăng ký</h3>
 
-    <label for="username">Tên đăng nhập:</label>
-    <input type="text" name="username" id="username" required>
+    <div class="form-group">
+        <label for="username">Tên đăng nhập:</label>
+        <input class="form-control" type="text" name="username" id="username" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="password">Mật khẩu:</label>
+        <input class="form-control" type="password" name="password" id="password" required>
+    </div>
+    
 
-    <label for="password">Mật khẩu:</label>
-    <input type="password" name="password" id="password" required>
+    <div class="form-group">
+        <label for="name">Họ & tên:</label>
+        <input class="form-control" type="text" name="name" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <input class="form-control" type="email" name="email" required>
+    </div>
+    
 
-    <label for="name">Họ & tên:</label>
-    <input type="text" name="name" required>
-
-    <label for="email">Email:</label>
-    <input type="email" name="email" required>
-
-    <label for="phone">Số điện thoại:</label>
-    <input type="number" name="phone" required>
+    <div class="form-group">
+        <label for="phone">Số điện thoại:</label>
+        <input class="form-control" type="number" name="phone" required>
+    </div>
+    
 
     <p><small>Với việc đăng ký, bạn đã đồng ý với WeBooki về <a href="">Điều khoản dịch vụ</a> & <a href="">Chính sách bảo mật</a></small></p>
     <button type="submit" class="btn btn-lg btn-primary" name="register-button">Đăng ký</button>
