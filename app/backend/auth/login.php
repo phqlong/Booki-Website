@@ -18,9 +18,9 @@
         while($row = mysqli_fetch_assoc($result)){
             $username = $row['username'];
             $role = $row['role'];
-            $uid = $row['uid'];
-            
+            $uid = $row['uid'];    
         }
+
         mysqli_free_result($result);
 
         if($uid == '-1'){
@@ -36,7 +36,6 @@
             if ($role == 'customer') {
                 $_SESSION["cart"] = array();
                 
-                mysqli_more_result($conn);
                 while (mysqli_next_result($conn)) {
                     if($result = mysqli_store_result($conn)){
                         if (mysqli_num_rows($result) > 0) {

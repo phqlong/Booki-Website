@@ -1,4 +1,4 @@
-<?php if(getRole() == 'customer'): ?>
+<?php if(isLoggedIn() && getRole() == 'customer'): ?>
     <a href="cart.php" class="icon-shopping_cart btn-cart"></a>
 <?php endif; ?>
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar header-bar ftco-navbar-light" id="ftco-navbar">

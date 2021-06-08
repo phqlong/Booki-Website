@@ -16,10 +16,8 @@
                         <option value="Đã hủy">Đã hủy</option>
                     </select>
                 </div>
-                
-
             </div>
-            <div class="form-group col-md-12 col-lg-4 offset-lg-1">
+            <div class="form-group col-md-12 col-lg-4 offset-lg">
                 <label for="admin-order-search-usn" class="text-body">Tên đăng nhập</label>
                 <div class="input-group">
                     
@@ -30,25 +28,24 @@
                 </div>
 
             </div>
-        </div>
-
-        <div class="admin-order-result" id="admin-order-result">
-            <table class="table table-striped">
-                <thead id="admin-order-result-head" class="thead-dark ">
-                    <tr>
-                        <th scope="col">Mã đơn hàng</th>
-                        <th scope="col">Số tài khoản</th>
-                        <th scope="col">Tài khoản</th>
-                        <th scope="col">Tên</th>
-                        <th scope="col">Thời gian đặt hàng</th>
-                        <th scope="col">Tình trạng</th>
-                    </tr>
-                </thead>
-                <tbody id="admin-order-result-body" class="">
-
-                </tbody>
-                <p id="admin-order-no-record" class="text-body hidden text-center">Không tìm thấy đơn hàng.</p>
-            </table>
-        </div>
+        </div>        
     </form>
+    <div class="admin-order-result table-responsive" id="admin-order-result">
+        <p id="admin-order-no-record" class="text-body hidden text-center">Không tìm thấy đơn hàng.</p>
+        <table class="table table-striped">
+            <thead id="admin-order-result-head" class="thead-dark hidden">
+                <tr>
+                    <th scope="col">Mã đơn hàng</th>
+                    <th scope="col">Số tài khoản</th>
+                    <th scope="col">Tài khoản</th>
+                    <th scope="col">Tên</th>
+                    <th scope="col">Thời gian đặt hàng</th>
+                    <th scope="col">Tình trạng</th>
+                </tr>
+            </thead>
+            <tbody id="admin-order-result-body" class="hidden">
+            </tbody>
+            
+        </table>
+    </div>
 </div>

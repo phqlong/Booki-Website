@@ -186,15 +186,15 @@ DELIMITER ;
 
 DELIMITER $$
 CREATE OR REPLACE PROCEDURE `UPDATE_INFO`(
-    IN uname VARCHAR(15) COLLATE utf8mb4_unicode_ci,
-    IN psswd VARCHAR(30), 
-    IN _name VARCHAR(50) COLLATE utf8mb4_unicode_ci, 
-    IN _phone VARCHAR(10) COLLATE utf8mb4_unicode_ci,
-    IN _email TEXT COLLATE utf8mb4_unicode_ci
+    IN `uname` VARCHAR(15) COLLATE utf8mb4_unicode_ci,
+    IN `psswd` VARCHAR(30), 
+    IN `_name` VARCHAR(50) COLLATE utf8mb4_unicode_ci, 
+    IN `_phone` VARCHAR(10) COLLATE utf8mb4_unicode_ci,
+    IN `_email` TEXT COLLATE utf8mb4_unicode_ci
 )
 BEGIN
     IF(psswd = '' OR (psswd IS NULL)) THEN
-        UPDATE user
+        UPDATE `user`
         SET
             name = _name,
             phone = _phone,
@@ -202,7 +202,7 @@ BEGIN
         WHERE
     	    username = uname;
     ELSE
-        UPDATE user
+        UPDATE `user`
         SET
     	    password = PASSWORD(psswd),
             name = _name,
