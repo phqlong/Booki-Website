@@ -432,8 +432,8 @@ DELIMITER ;
 /*
 	PROCEDURE: ADD_TO_CART
     Description: Helper procedure when user logout and update cart on database.
-        - Book has been in the cart: increase the current amount of this book in the cart by 1
-        - Book hasn't been in the cart: add new cart item with amount = 1
+        - Book has been in the cart: increase the current amount of this book in the cart by _amount
+        - Book hasn't been in the cart: add new cart item with amount = _amount
     Param
         - usn: username
         - _bid: book id
@@ -465,27 +465,6 @@ BEGIN
 END $$
 DELIMITER ;
 
-
-/*
-	PROCEDURE: UPDATE_CART_ITEM
-    Description: Update amount of book in cart
-    Param
-        - _uid: user id
-        - _bid: book id
-        - _amount: amount to update
-*/
-DELIMITER $$
-CREATE OR REPLACE PROCEDURE `UPDATE_CART_ITEM`(
-    IN _uid INT,
-    IN _bid INT,
-    IN _amount INT
-)
-BEGIN 
-    UPDATE `cart`
-    SET amount = _amount
-    WHERE uid = _uid AND bid = _bid;
-END $$
-DELIMITER ;
 
 /*
 	PROCEDURE: REMOVE_CART_ITEM

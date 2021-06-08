@@ -2,7 +2,6 @@ window.onload = () =>{
     fetch_order();  
 
 }
-
 $('#admin-order-search').submit(function(e){
     e.preventDefault();
     fetch_order();
@@ -53,6 +52,13 @@ var order_observer = new MutationObserver(()=>{
         $('#status').html(status);
         $('#admin-edit-order').fadeIn(200);
         $('#admin-edit-order').css('display', 'flex');
+        if(status == "Đã đặt" || status == "Đang giao"){
+            $('#update-btn').show();
+        }
+        else{
+            $('#cancel-btn').html("Đóng");
+            $('#update-btn').hide();
+        }
    
         
         $.ajax({

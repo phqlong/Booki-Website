@@ -18,7 +18,10 @@
                         <span><?php echo $row["status"];?></span>
                         <?php if($row["status"] != "Thành công" && $row["status"] != "Đã hủy"):?>
                             <button type="button" class="icon-edit btn edit-status-btn"></button>
+                        <?php else: ?>     
+                            <button type="button" class="icon-info text-info btn edit-status-btn"></button>
                         <?php endif; ?>     
+                        
                     </td>     
                 </tr>
 <?php
