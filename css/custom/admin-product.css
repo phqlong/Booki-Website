@@ -2,7 +2,7 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
-    
+    justify-content: flex-start;
     padding: 0 3rem;
 }
 
@@ -18,7 +18,10 @@
 
 .admin-list > *{
     flex: 0 0 calc(25% + 2rem);
-    margin: 2rem 0;
+    margin-top: 2rem ;
+    margin-bottom: 2rem;
+    margin-right: auto;  
+    margin-left: auto;
 }
 
 .admin .card-title{
