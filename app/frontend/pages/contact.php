@@ -1,7 +1,7 @@
 <section id="contact" class="contact">
     <div class="container">
 
-        <div class="section-title text-center" style="height: 10rem;" data-aos="fade-up">
+        <div class="section-title text-center mt-4" style="height: 10rem;" data-aos="fade-up">
             <h1>Thông tin liên hệ</h1>
             <p>Liên hệ với chúng tôi bất cứ khi nào!</p>
         </div>

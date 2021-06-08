@@ -1,15 +1,7 @@
 <div class="container">
-    <div class="py-5 text-center">
+    <div class="text-center mt-4">
         <h1>Tiến hành đặt hàng</h1>
     </div>
-
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.php">Trang chủ</a></li>
-            <li class="breadcrumb-item"><a href="cart.php">Giỏ hàng</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Thanh toán</li>
-        </ol>
-    </nav>
 
     <div class="row">
         <div class="col-md-4 order-md-2 mb-4">
