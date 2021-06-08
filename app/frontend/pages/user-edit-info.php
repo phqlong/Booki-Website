@@ -19,7 +19,7 @@
 
         <div class="form-group">
             <label for="name">Mật khẩu cũ:</label>
-            <input type="password" class="form-control" id="oldPassword" name="oldPassword">
+            <input type="password" class="form-control" id="oldPassword" name="oldPassword" required>
         </div> 
 
         <div class="form-group">
