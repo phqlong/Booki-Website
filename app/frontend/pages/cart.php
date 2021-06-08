@@ -41,11 +41,11 @@
             </tbody>
         </table>
         <div class="text-center">
-            <a href="checkout.php" class="btn btn-primary py-3 px-4 btn-lg
+            <a href="checkout.php" class="btn btn-primary py-3 px-3
                 <?php if (count($_SESSION['cart']) == 0) echo "disabled"; ?>"> 
                 Thanh toán 
             </a>
-            <a href="product.php"  class="btn btn-secondary" > Tiếp tục mua hàng </a>
+            <a href="product.php"  class="btn btn-secondary py-2 px-2" > Tiếp tục mua hàng </a>
         </div>
     </div>
 </div>
