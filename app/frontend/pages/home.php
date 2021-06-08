@@ -111,7 +111,7 @@
               </div>
               <div class="text sub-text">
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi omnis qui distinctio.</p>
-                <p><a href="product.php" target="_blank" class="btn btn-outline-primary btn-md btn-pill">Xem ngay</a></p>
+                <p><a href="product.php" target="_blank" class="btn btn-outline-primary btn-md btn-pill">XEM NGAY</a></p>
               </div>
             </div>
           </div>

@@ -1,24 +1,26 @@
-
-.product-detail .img-detail img{
+.product-detail .img-detail img {
     width: auto;
     max-width: 100%;
     height: 500px;
     padding: 20px;
 }
-.product-detail .buy-item,.product-detail .addtocart-item{
+
+.product-detail .buy-item,
+.product-detail .addtocart-item {
     width: 150px;
 }
-.product-detail  {
+
+.product-detail {
     padding: 20px;
-    color:black;
+    color: black;
 }
-.product-detail .description .price{
-    color:orange;
+
+.product-detail .description .price {
+    color: orange;
     font-weight: bold;
     font-size: 35px;
 }
-.product-detail .customer-cmt .five_star a{
+
+.product-detail .customer-cmt .five_star a {
     color: rgb(255, 0, 0);
 }
-
-
