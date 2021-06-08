@@ -2,8 +2,8 @@
     <div class="container">
         
         <h2 class="text-center">Giỏ hàng</h2>
-        <table class="table table-hover">
-            <thead class="thead">
+        <table class="table table-hover ">
+            <thead class="thead-dark">
                 <tr>
                     <th>Sản phẩm</th>
                     <th>Đơn giá</th>
@@ -24,7 +24,7 @@
                                 <td><p class="text-left"><img src='.$values['item_image'].'><a href="product-detail.php?id='.$values["item_id"].'">'.$values["item_name"].'</a></p></td>
                                 <td>'.$values['item_price'].' đ</td>
                                 <td><input type="number" value="'.$values["item_quantity"].'" name="quantity" min="1" onchange="changeQuatity('.$values['item_id'].',this.value)"></td>
-                                <td>'.($values["item_quantity"] * $values["item_price"]).' đ</td>
+                                <td>'.($values["item_quantity"] * $values["item_price"]).' VND</td>
                                 <td><button type="button" class="btn btn-danger" onclick="changeQuatity('.$values['item_id'].',0)">Xóa</button></td>
                             </tr>';
                         $total +=  ($values["item_quantity"] * $values["item_price"]);

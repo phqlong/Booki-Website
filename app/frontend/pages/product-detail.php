@@ -43,7 +43,7 @@
                             <p>' . $row['description'] . '</p>
                             <p>Tác giả: <b>' . $row['author'] . '</b> <br>
                             Nhà cung cấp: <b>' . $row['publisher'] . '</b> </p>
-                            <p class="price">' . $row['price'] . ' đ</p>
+                            <p class="price">' . $row['price'] . ' VND</p>
                             <b>Số lượng:</b>  <input type="number" name="quantity" class="" value="1" min="1" max="10" style="width: 10em">
                             <input type="hidden" name="hidden_name" value="' . $row['name'] . '">
                             <input type="hidden" name="hidden_price" value="' . $row['price'] . '">
