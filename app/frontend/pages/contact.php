@@ -54,7 +54,7 @@
                         </div>
                     </div>
                     <div className="text-muted">
-                        <p> Chúng tôi sẽ không bao giờ chia sẽ thông tin cá nhân của bạn!</p>
+                        <p> Chúng tôi sẽ không bao giờ chia sẻ thông tin cá nhân của bạn!</p>
                     </div>
 
                     <div class="form-group">
