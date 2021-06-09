@@ -2,7 +2,7 @@
 require_once 'app/backend/core/init.php';
 if (isset($_POST['viewproducts'])){
     $data="";
-    $sql = "SELECT bid,name, price,image FROM book";
+    $sql = "CALL GET_ALL_BOOKS()";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {

@@ -35,8 +35,8 @@
         
         else if(($_GET["edit_rq"] == "delete")){
             $bid = $_GET["bid"];
-            $query = "CALL REMOVE_BOOK(\"$bid\")";
-            mysqli_query($conn, $query);
+            $query = "CALL REMOVE_BOOK($bid)";
+            echo mysqli_query($conn, $query);
         }
     }
 

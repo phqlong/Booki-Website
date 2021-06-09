@@ -27,8 +27,15 @@ $('.btn-delete').click(function () {
                 "bid": bid
             },
             success: function (response) {
+                console.log(response);
+                if(response == 1){
+                    alert("Đã xóa sản phẩm");
+                    location.reload();
+                }
+                else{
+                    alert("Xóa sản phẩm thất bại");
+                }
                 
-                location.reload();
             }
         });
     }
